@@ -324,6 +324,13 @@
     </div>
    </nav><!-- Home Page -->
    <section id="page-home" class="page"><!-- Banner Carousel -->
+   <div id="page-pdf" class="page hidden">
+  <iframe 
+    id="securePdf"
+    style="width:100%;height:100vh;border:none;background:white">
+  </iframe>
+  </div>
+
     <div class="bg-gradient-to-r from-yellow-400 via-orange-500 to-red-500 relative overflow-hidden">
      <div id="banner-carousel" class="transition-transform duration-500 ease-in-out"><!-- Offer Banner -->
       <div class="banner-slide py-3 px-4 text-center">
@@ -1018,6 +1025,12 @@
    <div id="toast-container" class="fixed bottom-4 right-4 z-50"></div>
   </div>
   <script>
+    function openPdf(orderId){
+  navigateTo("pdf");
+  document.getElementById("securePdf").src =
+    "https://examhelp-backend.onrender.com/api/pdf/" + orderId;
+}
+
     // Language translations
     const translations = {
       en: {
@@ -1656,6 +1669,8 @@
     showToast(`Payment Successful 🎉 Final Amount: ₹${data.amount}`, 'success');
     navigateTo('success');
 
+    openPdf(data._id || "123");
+
   } catch (err) {
     console.error(err);
     showToast('Payment failed. Try again.', 'error');
@@ -1878,6 +1893,15 @@ async function loadAdminData(){
   const tbody = document.getElementById("orders-table-body"); tbody.innerHTML = "";
   orders.forEach(o=>{ tbody.innerHTML += `<tr><td>${o._id}</td><td>${o.name}</td><td>${o.email}</td><td>${o.mobile}</td><td>${o.state}</td><td>₹${o.amount}</td><td>PAID</td><td>-</td></tr>`;});
 }
+</script>
+
+<script>
+document.addEventListener("contextmenu", e => e.preventDefault());
+
+document.addEventListener("keydown", e => {
+  if(e.ctrlKey && ["s","p","u"].includes(e.key.toLowerCase()))
+    e.preventDefault();
+});
 </script>
 
 </body>
