@@ -1605,36 +1605,65 @@
 
     // Checkout handling
     async function handleCheckout(e) {
-      e.preventDefault();
+  e.preventDefault();
       
-      const name = document.getElementById('name').value.trim();
-      const email = document.getElementById('email').value.trim();
-      const mobile = document.getElementById('mobile').value.trim();
-      const state = document.getElementById('state').value;
-      
-      if (!name || !email || !mobile || !state) {
-        showToast('Please fill all fields', 'error');
-        return;
-      }
+  const name = document.getElementById('name').value.trim();
+  const email = document.getElementById('email').value.trim();
+  const mobile = document.getElementById('mobile').value.trim();
+  const state = document.getElementById('state').value;
+  const coupon = document.getElementById('couponInput').value.trim();
+  const referCode = document.getElementById('referInput').value.trim();
 
-      if (!/^[0-9]{10}$/.test(mobile)) {
-        showToast('Please enter a valid 10-digit mobile number', 'error');
-        return;
-      }
+  if (!name || !email || !mobile || !state) {
+    showToast('Please fill all fields', 'error');
+    return;
+  }
 
-      const payButton = document.getElementById('pay-button');
-      const payButtonText = document.getElementById('pay-button-text');
-      
-      payButton.disabled = true;
-      payButtonText.innerHTML = '<div class="spinner mx-auto"></div>';
+  if (!/^[0-9]{10}$/.test(mobile)) {
+    showToast('Please enter a valid 10-digit mobile number', 'error');
+    return;
+  }
 
-      // Check order limit
-      if (orders.length >= 999) {
-        showToast('Order limit reached', 'error');
-        payButton.disabled = false;
-        payButtonText.textContent = 'Pay with PhonePe';
-        return;
-      }
+  const payButton = document.getElementById('pay-button');
+  const payButtonText = document.getElementById('pay-button-text');
+
+  payButton.disabled = true;
+  payButtonText.innerHTML = '<div class="spinner mx-auto"></div>';
+
+  try {
+
+    const res = await fetch(API + "/api/orders/create", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        name,
+        email,
+        mobile,
+        state,
+        amount: basePrice,
+        coupon,
+        referCode
+      })
+    });
+
+    const data = await res.json();
+
+    if (!res.ok) {
+      throw new Error(data.msg || "Order failed");
+    }
+
+    orders.push(data);
+
+    showToast(`Payment Successful 🎉 Final Amount: ₹${data.amount}`, 'success');
+
+  } catch (err) {
+    console.error(err);
+    showToast('Payment failed. Please try again.', 'error');
+  }
+
+  payButton.disabled = false;
+  payButtonText.textContent = 'Pay with PhonePe';
+}
 
       // Simulate payment processing
       await new Promise(resolve => setTimeout(resolve, 2000));
@@ -1688,7 +1717,7 @@
       } else {
         navigateTo('failure');
       }
-    }
+  
 
     // Admin functions
     function updateAdminStats() {
@@ -1825,27 +1854,61 @@ const API = "https://examhelp-backend.onrender.com";
 
 async function handleSignup(e){
   e.preventDefault();
+
   const name = document.getElementById("signup-name").value;
   const email = document.getElementById("signup-email").value;
   const mobile = document.getElementById("signup-mobile").value;
   const password = document.getElementById("signup-password").value;
   const confirm = document.getElementById("signup-confirm-password").value;
-  if(password !== confirm){ showToast("Passwords do not match","error"); return; }
-  const res = await fetch(API + "/api/auth/signup", {method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({ name, email, mobile, password })});
+
+  if(password !== confirm){
+    showToast("Passwords do not match","error");
+    return;
+  }
+
+  const res = await fetch(API + "/api/auth/signup", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ name, email, mobile, password })
+  });
+
   const data = await res.json();
-  if(!res.ok){ showToast(data.msg || "Signup failed","error"); return; }
-  showToast("Account created successfully","success"); navigateTo("login");
+
+  if(!res.ok){
+    showToast(data.msg || "Signup failed","error");
+    return;
+  }
+
+  showToast("Account created successfully","success");
+  navigateTo("login");
 }
+
 
 async function handleLogin(e){
   e.preventDefault();
+
   const email = document.getElementById("login-email").value;
   const password = document.getElementById("login-password").value;
-  const res = await fetch(API + "/api/auth/login", {method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({ email, password })});
+
+  const res = await fetch(API + "/api/auth/login", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ email, password })
+  });
+
   const data = await res.json();
-  if(!res.ok){ showToast(data.msg || "Login failed","error"); return; }
-  currentUser = data; localStorage.setItem("currentUser", JSON.stringify(data));
-  updateAuthUI(); showToast("Login successful","success"); navigateTo("home");
+
+  if(!res.ok){
+    showToast(data.msg || "Login failed","error");
+    return;
+  }
+
+  currentUser = data;
+  localStorage.setItem("currentUser", JSON.stringify(data));
+  updateAuthUI();
+
+  showToast("Login successful","success");
+  navigateTo("home");
 }
 
 async function handleCheckout(e){
