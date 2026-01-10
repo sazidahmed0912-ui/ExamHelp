@@ -1887,8 +1887,8 @@ async function handleSignup(e){
 async function handleLogin(e){
   e.preventDefault();
 
-  const email = document.getElementById("login-email").value;
-  const password = document.getElementById("login-password").value;
+  const email = document.getElementById("login-email").value.trim();
+  const password = document.getElementById("login-password").value.trim();
 
   const res = await fetch(API + "/api/auth/login", {
     method: "POST",
@@ -1903,25 +1903,13 @@ async function handleLogin(e){
     return;
   }
 
-  currentUser = data;
   localStorage.setItem("currentUser", JSON.stringify(data));
-  updateAuthUI();
+  currentUser = data;
 
   showToast("Login successful","success");
   navigateTo("home");
 }
 
-async function handleCheckout(e){
-  e.preventDefault();
-  const name = document.getElementById("name").value;
-  const email = document.getElementById("email").value;
-  const mobile = document.getElementById("mobile").value;
-  const state = document.getElementById("state").value;
-  const res = await fetch(API + "/api/orders/create", {method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({ name, email, mobile, state, amount:199, status:"PAID" })});
-  const order = await res.json();
-  document.getElementById("success-order-id").innerText = order._id;
-  navigateTo("success");
-}
 
 async function loadAdminData(){
   const orders = await fetch(API + "/api/orders/all").then(r=>r.json());
