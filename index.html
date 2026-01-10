@@ -1884,31 +1884,41 @@ async function handleSignup(e){
 }
 
 
-async function handleLogin(e){
+async function handleLogin(e) {
   e.preventDefault();
 
-  const email = document.getElementById("login-email").value.trim();
-  const password = document.getElementById("login-password").value.trim();
+  const email = document.getElementById("login-email").value;
+  const password = document.getElementById("login-password").value;
 
-  const res = await fetch(API + "/api/auth/login", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ email, password })
-  });
+  try {
+    const res = await fetch(API + "/api/auth/login", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ email, password })
+    });
 
-  const data = await res.json();
+    const data = await res.json();
 
-  if(!res.ok){
-    showToast(data.msg || "Login failed","error");
-    return;
+    if (!res.ok) {
+      showToast(data.msg || "Login failed", "error");
+      return;
+    }
+
+    localStorage.setItem("currentUser", JSON.stringify(data.user));
+    localStorage.setItem("token", data.token);
+
+    currentUser = data.user;
+    updateAuthUI();
+
+    showToast("Login successful", "success");
+    navigateTo("home");
+
+  } catch (err) {
+    console.error(err);
+    showToast("Network error", "error");
   }
-
-  localStorage.setItem("currentUser", JSON.stringify(data));
-  currentUser = data;
-
-  showToast("Login successful","success");
-  navigateTo("home");
 }
+
 
 
 async function loadAdminData(){
