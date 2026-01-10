@@ -1627,58 +1627,51 @@
   const email = document.getElementById('email').value.trim();
   const mobile = document.getElementById('mobile').value.trim();
   const state = document.getElementById('state').value;
-  const coupon = document.getElementById('couponInput').value.trim();
-  const referCode = document.getElementById('referInput').value.trim();
 
   if (!name || !email || !mobile || !state) {
-    showToast('Please fill all fields', 'error');
+    showToast("Please fill all fields", "error");
     return;
   }
 
   if (!/^[0-9]{10}$/.test(mobile)) {
-    showToast('Please enter valid mobile number', 'error');
+    showToast("Invalid mobile number", "error");
     return;
   }
 
-  const payButton = document.getElementById('pay-button');
-  const payButtonText = document.getElementById('pay-button-text');
+  const payBtn = document.getElementById("pay-button");
+  const payText = document.getElementById("pay-button-text");
 
-  payButton.disabled = true;
-  payButtonText.innerHTML = 'Processing...';
+  payBtn.disabled = true;
+  payText.innerHTML = "Processing...";
 
-  try {
-    const res = await fetch(API + "/api/orders/create", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        name,
-        email,
-        mobile,
-        state,
-        amount: basePrice,
-        coupon,
-        referCode
-      })
-    });
+  // ⏳ Fake payment delay
+  await new Promise(r => setTimeout(r, 1500));
 
-    const data = await res.json();
+  // 🎯 Generate fake order
+  const order = {
+    _id: "ORD" + Date.now(),
+    name, email, mobile, state,
+    amount: 199,
+    paymentStatus: "SUCCESS"
+  };
 
-    if (!res.ok) throw new Error(data.msg || "Order failed");
+  orders.push(order);
 
-    orders.push(data);
-    showToast(`Payment Successful 🎉 Final Amount: ₹${data.amount}`, 'success');
-    navigateTo('success');
+  payBtn.disabled = false;
+  payText.innerHTML = "Pay with PhonePe";
 
-    openPdf(data._id || "123");
+  showToast("Payment Successful 🎉", "success");
 
-  } catch (err) {
-    console.error(err);
-    showToast('Payment failed. Try again.', 'error');
-  }
+  // 🔓 Unlock PDF + Success page
+  document.getElementById("success-order-id").innerText = order._id;
+  navigateTo("success");
 
-  payButton.disabled = false;
-  payButtonText.textContent = 'Pay with PhonePe';
+  // Auto open PDF
+  setTimeout(() => {
+    openPdf(order._id);
+  }, 1000);
 }
+
  
 
     // Admin functions
