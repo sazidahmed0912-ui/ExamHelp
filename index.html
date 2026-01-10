@@ -1197,36 +1197,39 @@
 
     // Handle feedback form
     async function handleFeedbackForm(e) {
-      e.preventDefault();
-      
-      if (selectedRating === 0) {
-        showToast('Please select a rating', 'error');
-        return;
-      }
+  e.preventDefault();
 
-      const submitBtn = document.getElementById('feedback-submit-btn');
-      submitBtn.disabled = true;
-      submitBtn.innerHTML = '<div class="spinner mx-auto"></div>';
+  if (selectedRating === 0) {
+    showToast('Please select a rating', 'error');
+    return;
+  }
 
-      await new Promise(resolve => setTimeout(resolve, 1500));
+  const submitBtn = document.getElementById('feedback-submit-btn');
+  submitBtn.disabled = true;
+  submitBtn.innerHTML = '<div class="spinner mx-auto"></div>';
 
-      showToast('Thank you for your feedback! 🎉', 'success');
-      
-      document.getElementById('feedback-form').reset();
-      selectedRating = 0;
-      document.querySelectorAll('.rating-btn').forEach(btn => {
-        btn.classList.remove('text-yellow-400');
-        btn.classList.add('text-gray-300');
-      });
-      document.getElementById('rating-text').textContent = '';
-      
-      submitBtn.disabled = false;
-      submitBtn.textContent = 'Submit Review';
+  // Simulate small delay safely
+  await new Promise(resolve => setTimeout(resolve, 1500));
 
-      setTimeout(() => {
-        navigateTo('details');
-      }, 2000);
-    }
+  showToast('Thank you for your feedback! 🎉', 'success');
+
+  document.getElementById('feedback-form').reset();
+  selectedRating = 0;
+
+  document.querySelectorAll('.rating-btn').forEach(btn => {
+    btn.classList.remove('text-yellow-400');
+    btn.classList.add('text-gray-300');
+  });
+
+  document.getElementById('rating-text').textContent = '';
+
+  submitBtn.disabled = false;
+  submitBtn.textContent = 'Submit Review';
+
+  setTimeout(() => {
+    navigateTo('details');
+  }, 2000);
+}
 
     // Handle contact form
     async function handleContactForm(e) {
@@ -1606,7 +1609,7 @@
     // Checkout handling
     async function handleCheckout(e) {
   e.preventDefault();
-      
+
   const name = document.getElementById('name').value.trim();
   const email = document.getElementById('email').value.trim();
   const mobile = document.getElementById('mobile').value.trim();
@@ -1620,7 +1623,7 @@
   }
 
   if (!/^[0-9]{10}$/.test(mobile)) {
-    showToast('Please enter a valid 10-digit mobile number', 'error');
+    showToast('Please enter valid mobile number', 'error');
     return;
   }
 
@@ -1628,10 +1631,9 @@
   const payButtonText = document.getElementById('pay-button-text');
 
   payButton.disabled = true;
-  payButtonText.innerHTML = '<div class="spinner mx-auto"></div>';
+  payButtonText.innerHTML = 'Processing...';
 
   try {
-
     const res = await fetch(API + "/api/orders/create", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -1648,76 +1650,21 @@
 
     const data = await res.json();
 
-    if (!res.ok) {
-      throw new Error(data.msg || "Order failed");
-    }
+    if (!res.ok) throw new Error(data.msg || "Order failed");
 
     orders.push(data);
-
     showToast(`Payment Successful 🎉 Final Amount: ₹${data.amount}`, 'success');
+    navigateTo('success');
 
   } catch (err) {
     console.error(err);
-    showToast('Payment failed. Please try again.', 'error');
+    showToast('Payment failed. Try again.', 'error');
   }
 
   payButton.disabled = false;
   payButtonText.textContent = 'Pay with PhonePe';
 }
-
-      // Simulate payment processing
-      await new Promise(resolve => setTimeout(resolve, 2000));
-
-      // Calculate final amount
-      let finalAmount = basePrice;
-      if (appliedCoupon) {
-        finalAmount -= appliedCoupon.type === 'flat' 
-          ? appliedCoupon.discount 
-          : Math.round(basePrice * appliedCoupon.discount / 100);
-      }
-
-      // Create order
-      const orderId = 'ORD-' + Date.now().toString(36).toUpperCase();
-      const isSuccess = Math.random() > 0.2; // 80% success rate for demo
-
-      const order = {
-        id: orderId,
-        name,
-        email,
-        mobile,
-        state,
-        amount: finalAmount,
-        orderId,
-        paymentStatus: isSuccess ? 'SUCCESS' : 'FAILED',
-        couponCode: appliedCoupon ? appliedCoupon.code : '',
-        createdAt: new Date().toISOString()
-      };
-
-      if (window.dataSdk) {
-        const result = await window.dataSdk.create(order);
-        if (!result.isOk) {
-          showToast('Failed to save order', 'error');
-        }
-      }
-
-      // Reset form
-      document.getElementById('checkout-form').reset();
-      payButton.disabled = false;
-      payButtonText.textContent = 'Pay with PhonePe';
-      appliedCoupon = null;
-      document.getElementById('coupon-input').disabled = false;
-      document.getElementById('coupon-input').value = '';
-      document.getElementById('coupon-message').classList.add('hidden');
-      updateCheckoutTotal();
-
-      // Navigate to result page
-      if (isSuccess) {
-        document.getElementById('success-order-id').textContent = orderId;
-        navigateTo('success');
-      } else {
-        navigateTo('failure');
-      }
-  
+ 
 
     // Admin functions
     function updateAdminStats() {
