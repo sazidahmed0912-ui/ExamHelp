@@ -1315,38 +1315,35 @@
     }
 
     // Handle login
-    async function handleLogin(e) {
+   async function handleLogin(e) {
   e.preventDefault();
 
-  const email = document.getElementById("login-email").value;
+  const email = document.getElementById("login-email").value.trim();
   const password = document.getElementById("login-password").value;
 
   try {
-    const res = await fetch(API + "/api/auth/login", {
+    const res = await fetch("https://examhelp-backend.onrender.com/api/auth/login", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ email, password })
     });
 
-    const data = await res.json();   // ✅ Yahin data define hua
+    const data = await res.json();   // ❗ data yahan define hua
 
     if (!res.ok) {
       showToast(data.msg || "Login failed", "error");
       return;
     }
 
-    localStorage.setItem("token", data.token);
     localStorage.setItem("currentUser", JSON.stringify(data.user));
-
-    currentUser = data.user;
-    updateAuthUI();
+    localStorage.setItem("token", data.token);
 
     showToast("Login successful 🎉", "success");
     navigateTo("home");
 
   } catch (err) {
     console.error(err);
-    showToast("Server error / Network problem", "error");
+    showToast("Network error", "error");
   }
 }
 
