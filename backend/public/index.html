@@ -1316,56 +1316,40 @@
 
     // Handle login
     async function handleLogin(e) {
-      e.preventDefault();
-      
-      const email = document.getElementById('login-email').value.trim();
-      const password = document.getElementById('login-password').value;
-      
-      const submitBtn = document.getElementById('login-submit-btn');
-      submitBtn.disabled = true;
-      submitBtn.innerHTML = '<div class="spinner mx-auto"></div>';
+  e.preventDefault();
 
-      showHeaderLoading(true);
-      await new Promise(resolve => setTimeout(resolve, 1500));
+  const email = document.getElementById("login-email").value;
+  const password = document.getElementById("login-password").value;
 
-      // Check for admin credentials
-      if (email === 'Shahid@admin.com' && password === 'Shahid123') {
-        currentUser = { name: 'Admin', email: email, mobile: 'Admin', isAdmin: true };
-        localStorage.setItem('currentUser', JSON.stringify(currentUser));
-        updateAuthUI();
-        showToast('Admin login successful! Welcome! 🎉', 'success');
-        document.getElementById('login-form').reset();
-        setTimeout(() => {
-          navigateTo('admin');
-        }, 1000);
-        submitBtn.disabled = false;
-        submitBtn.innerHTML = '<span data-i18n="login_button">Login</span>';
-        showHeaderLoading(false);
-        updatePageLanguage();
-        return;
-      }
+  try {
+    const res = await fetch(API + "/api/auth/login", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ email, password })
+    });
 
-      // Find regular user
-      const user = users.find(u => u.email === email && u.password === password);
-      
-      if (user) {
-        currentUser = { name: user.name, email: user.email, mobile: user.mobile, isAdmin: false };
-        localStorage.setItem('currentUser', JSON.stringify(currentUser));
-        updateAuthUI();
-        showToast('Login successful! Welcome back! 🎉', 'success');
-        document.getElementById('login-form').reset();
-        setTimeout(() => {
-          navigateTo('home');
-        }, 1000);
-      } else {
-        showToast('Invalid email or password', 'error');
-      }
-      
-      submitBtn.disabled = false;
-      submitBtn.innerHTML = '<span data-i18n="login_button">Login</span>';
-      showHeaderLoading(false);
-      updatePageLanguage();
+    const data = await res.json();   // ✅ Yahin data define hua
+
+    if (!res.ok) {
+      showToast(data.msg || "Login failed", "error");
+      return;
     }
+
+    localStorage.setItem("token", data.token);
+    localStorage.setItem("currentUser", JSON.stringify(data.user));
+
+    currentUser = data.user;
+    updateAuthUI();
+
+    showToast("Login successful 🎉", "success");
+    navigateTo("home");
+
+  } catch (err) {
+    console.error(err);
+    showToast("Server error / Network problem", "error");
+  }
+}
+
 
     // Handle signup
     async function handleSignup(e) {
