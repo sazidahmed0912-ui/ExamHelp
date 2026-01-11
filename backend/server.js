@@ -15,16 +15,11 @@ connectDB();
 // ───────────── Middlewares ─────────────
 app.use(express.json());
 
-const allowedOrigins = [
-  process.env.CLIENT_URL,
-  process.env.CLIENT_PREVIEW_URL,
-  "https://exam-help-seven.vercel.app",
-  "https://exam-help-k1nllaj5z-sazid-ahmeds-projects.vercel.app",
-  "https://exam-help-git-main-sazid-ahmeds-projects.vercel.app",
-  "https://exam-help-c8ya3pdf4-sazid-ahmeds-projects.vercel.app",
+app.use(cors({
+  origin: true,
+  credentials: true
+}));
 
-  
-];
 
 app.use(cors({
   origin: function (origin, callback) {
