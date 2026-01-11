@@ -20,7 +20,10 @@ const allowedOrigins = [
   process.env.CLIENT_PREVIEW_URL,
   "https://exam-help-seven.vercel.app",
   "https://exam-help-k1nllaj5z-sazid-ahmeds-projects.vercel.app",
-  "https://exam-help-git-main-sazid-ahmeds-projects.vercel.app"
+  "https://exam-help-git-main-sazid-ahmeds-projects.vercel.app",
+  "https://exam-help-c8ya3pdf4-sazid-ahmeds-projects.vercel.app",
+
+  
 ];
 
 app.use(cors({
