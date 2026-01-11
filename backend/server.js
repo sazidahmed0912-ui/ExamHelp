@@ -2,7 +2,6 @@ require("dotenv").config({ path: "./backend/.env" });
 
 const express = require("express");
 const cors = require("cors");
-const path = require("path");
 const connectDB = require("./config/db");
 
 const app = express();
@@ -15,20 +14,13 @@ connectDB();
 // ───────────── Middlewares ─────────────
 app.use(express.json());
 
+// ✅ Stable CORS — Only allow Vercel frontend
 app.use(cors({
-  origin: true,
-  credentials: true
-}));
-
-
-app.use(cors({
-  origin: function (origin, callback) {
-    if (!origin || allowedOrigins.includes(origin)) {
-      callback(null, true);
-    } else {
-      callback(new Error("Not allowed by CORS"));
-    }
-  },
+  origin: [
+    "https://exam-help-seven.vercel.app",
+    "https://exam-help-git-main-sazid-ahmeds-projects.vercel.app",
+    "https://exam-help-c8ya3pdf4-sazid-ahmeds-projects.vercel.app"
+  ],
   credentials: true
 }));
 
@@ -39,14 +31,9 @@ app.use("/api/orders", require("./routes/order"));
 app.use("/api/pdf", require("./routes/pdf"));
 
 
-// ───────────── Serve Frontend ─────────────
-const frontendPath = path.join(__dirname, "public");
-
-app.use(express.static(frontendPath));
-
-// Express 5 SAFE fallback — no wildcards, no regex
-app.use((req, res) => {
-  res.sendFile(path.join(frontendPath, "index.html"));
+// ───────────── Health Check ─────────────
+app.get("/", (req, res) => {
+  res.send("Backend API running 🚀");
 });
 
 
@@ -54,5 +41,5 @@ app.use((req, res) => {
 const PORT = process.env.PORT || 5000;
 
 app.listen(PORT, () => {
-  console.log("✅ Server running on port", PORT);
+  console.log(`✅ Server running on port ${PORT}`);
 });
