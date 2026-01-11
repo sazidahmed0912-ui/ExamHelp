@@ -1846,7 +1846,7 @@ async function handleSignup(e){
 async function handleLogin(e) {
   e.preventDefault();
 
-  const email = document.getElementById("login-email").value;
+  const email = document.getElementById("login-email").value.trim();
   const password = document.getElementById("login-password").value;
 
   try {
@@ -1856,20 +1856,20 @@ async function handleLogin(e) {
       body: JSON.stringify({ email, password })
     });
 
-    
+    const data = await res.json();   // ✅ yahin par data define hota hai
 
     if (!res.ok) {
       showToast(data.msg || "Login failed", "error");
       return;
     }
 
-    localStorage.setItem("currentUser", JSON.stringify(data.user));
     localStorage.setItem("token", data.token);
+    localStorage.setItem("currentUser", JSON.stringify(data.user));
 
     currentUser = data.user;
     updateAuthUI();
 
-    showToast("Login successful", "success");
+    showToast("Login successful 🎉", "success");
     navigateTo("home");
 
   } catch (err) {
