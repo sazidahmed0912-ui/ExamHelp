@@ -325,11 +325,9 @@
    </nav><!-- Home Page -->
    <section id="page-home" class="page"><!-- Banner Carousel -->
    <div id="page-pdf" class="page hidden">
-  <iframe 
-    id="securePdf"
-    style="width:100%;height:100vh;border:none;background:white">
-  </iframe>
-  </div>
+  <iframe id="securePdf" style="width:100%;height:100vh;border:none;"></iframe>
+</div>
+
 
     <div class="bg-gradient-to-r from-yellow-400 via-orange-500 to-red-500 relative overflow-hidden">
      <div id="banner-carousel" class="transition-transform duration-500 ease-in-out"><!-- Offer Banner -->
@@ -1025,10 +1023,27 @@
    <div id="toast-container" class="fixed bottom-4 right-4 z-50"></div>
   </div>
   <script>
-    function openPdf(orderId){
-  navigateTo("pdf");
-  document.getElementById("securePdf").src =
-    "https://examhelp-backend.onrender.com/api/pdf/" + orderId;
+    function openPdf(orderId) {
+  console.log("🧾 Opening PDF:", orderId);
+
+  // Manually control pages (navigateTo ko bypass karo)
+  document.querySelectorAll(".page").forEach(p => p.classList.add("hidden"));
+
+  const pdfPage = document.getElementById("page-pdf");
+  const iframe = document.getElementById("securePdf");
+
+  pdfPage.classList.remove("hidden");
+
+  // Force refresh iframe
+  iframe.style.display = "none";
+  iframe.src = "";
+  
+  setTimeout(() => {
+    const url = "https://examhelp-backend.onrender.com/api/pdf/" + orderId;
+    console.log("📄 Loading:", url);
+    iframe.src = url;
+    iframe.style.display = "block";
+  }, 300);
 }
 
     // Language translations
