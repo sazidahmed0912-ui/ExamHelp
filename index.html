@@ -1620,7 +1620,8 @@
     }
 
     // Checkout handling
-    async function handleCheckout(e) {
+
+async function handleCheckout(e) {
   e.preventDefault();
 
   const name = document.getElementById('name').value.trim();
@@ -1644,36 +1645,37 @@
   payBtn.disabled = true;
   payText.innerHTML = "Processing...";
 
-  // ⏳ Fake Payment Delay
-  await new Promise(resolve => setTimeout(resolve, 1500));
+  // Fake payment delay
+  await new Promise(resolve => setTimeout(resolve, 1200));
 
-  // 🧾 Fake Order Generate
+  // Create fake order
+  const orderId = "ORD" + Date.now();
+
   const order = {
-    _id: "ORD" + Date.now(),
-    name,
-    email,
-    mobile,
-    state,
+    _id: orderId,
+    name, email, mobile, state,
     amount: 199,
     paymentStatus: "SUCCESS"
   };
 
   orders.push(order);
 
+  showToast("Payment Successful 🎉", "success");
+
   payBtn.disabled = false;
   payText.innerHTML = "Pay with PhonePe";
 
-  showToast("Payment Successful 🎉", "success");
-
-  // Success Page
-  document.getElementById("success-order-id").innerText = order._id;
+  // Show success page
+  document.getElementById("success-order-id").innerText = orderId;
   navigateTo("success");
 
-  // 🔓 Auto Open PDF
+  // 🔓 Auto open secure PDF
   setTimeout(() => {
-    openPdf(order._id);
+    openPdf(orderId);
   }, 800);
 }
+
+
 
 
  
