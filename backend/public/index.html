@@ -1319,16 +1319,21 @@
   e.preventDefault();
 
   const email = document.getElementById("login-email").value.trim();
-  const password = document.getElementById("login-password").value;
+  const password = document.getElementById("login-password").value.trim();
+
+  if (!email || !password) {
+    showToast("Please enter email & password", "error");
+    return;
+  }
 
   try {
-    const res = await fetch(API + "/api/auth/login", {
+    const res = await fetch("https://examhelp-backend.onrender.com/api/auth/login", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ email, password })
     });
 
-    const data = await res.json();   // ✅ VERY IMPORTANT LINE
+    const data = await res.json();   // 👈 YE LINE MISSING THI
 
     if (!res.ok) {
       showToast(data.msg || "Login failed", "error");
@@ -1336,19 +1341,17 @@
     }
 
     localStorage.setItem("token", data.token);
-    localStorage.setItem("currentUser", JSON.stringify(data.user));
+    localStorage.setItem("currentUser", data.name);
 
-    currentUser = data.user;
-    updateAuthUI();
-
-    showToast("Login successful 🎉", "success");
+    showToast("Login Successful 🎉", "success");
     navigateTo("home");
 
   } catch (err) {
     console.error(err);
-    showToast("Network error", "error");
+    showToast("Server error. Try again later.", "error");
   }
 }
+
 
 
     // Handle signup
@@ -1853,13 +1856,6 @@ async function handleLogin(e) {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ email, password })
     });
-
-    
-
-    if (!res.ok) {
-      showToast(data.msg || "Login failed", "error");
-      return;
-    }
 
     localStorage.setItem("currentUser", JSON.stringify(data.user));
     localStorage.setItem("token", data.token);
