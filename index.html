@@ -1623,10 +1623,10 @@
     async function handleCheckout(e) {
   e.preventDefault();
 
-  const name = document.getElementById('name').value.trim();
-  const email = document.getElementById('email').value.trim();
-  const mobile = document.getElementById('mobile').value.trim();
-  const state = document.getElementById('state').value;
+  const name   = document.getElementById("name").value.trim();
+  const email  = document.getElementById("email").value.trim();
+  const mobile = document.getElementById("mobile").value.trim();
+  const state  = document.getElementById("state").value;
 
   if (!name || !email || !mobile || !state) {
     showToast("Please fill all fields", "error");
@@ -1638,39 +1638,50 @@
     return;
   }
 
-  const payBtn = document.getElementById("pay-button");
+  const payBtn  = document.getElementById("pay-button");
   const payText = document.getElementById("pay-button-text");
 
   payBtn.disabled = true;
-  payText.innerHTML = "Processing...";
+  payText.innerHTML = "Processing Payment...";
 
-  // ⏳ Fake payment delay
-  await new Promise(r => setTimeout(r, 1500));
+  try {
+    // ⏳ Fake payment delay (safe)
+    await new Promise(resolve => setTimeout(resolve, 1500));
 
-  // 🎯 Generate fake order
-  const order = {
-    _id: "ORD" + Date.now(),
-    name, email, mobile, state,
-    amount: 199,
-    paymentStatus: "SUCCESS"
-  };
+    // 🧾 Generate fake successful order
+    const order = {
+      _id: "ORD-" + Date.now(),
+      name,
+      email,
+      mobile,
+      state,
+      amount: 199,
+      paymentStatus: "SUCCESS"
+    };
 
-  orders.push(order);
+    orders.push(order);
+    updateAdminStats();
+    renderOrdersTable();
+
+    showToast("Payment Successful 🎉", "success");
+
+    document.getElementById("success-order-id").innerText = order._id;
+    navigateTo("success");
+
+    // 🔓 Auto open protected PDF
+    setTimeout(() => {
+      openPdf(order._id);
+    }, 800);
+
+  } catch (err) {
+    console.error(err);
+    showToast("Payment failed. Try again.", "error");
+  }
 
   payBtn.disabled = false;
   payText.innerHTML = "Pay with PhonePe";
-
-  showToast("Payment Successful 🎉", "success");
-
-  // 🔓 Unlock PDF + Success page
-  document.getElementById("success-order-id").innerText = order._id;
-  navigateTo("success");
-
-  // Auto open PDF
-  setTimeout(() => {
-    openPdf(order._id);
-  }, 1000);
 }
+
 
  
 
