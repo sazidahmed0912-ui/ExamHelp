@@ -1627,6 +1627,13 @@ let appliedCoupon = null;
 async function handleCheckout(e) {
   e.preventDefault();
 
+  // 🔐 Login required
+  if (!localStorage.getItem("token")) {
+    showToast("Please login before payment", "error");
+    navigateTo("login");
+    return;
+  }
+
   const name = document.getElementById('name').value.trim();
   const email = document.getElementById('email').value.trim();
   const mobile = document.getElementById('mobile').value.trim();
@@ -1648,19 +1655,23 @@ async function handleCheckout(e) {
   payBtn.disabled = true;
   payText.innerHTML = "Processing...";
 
-  // Fake payment delay
+  // ⏳ Fake payment processing
   await new Promise(resolve => setTimeout(resolve, 1200));
 
-  // Create fake order
+  // 🧾 Create order
   const orderId = "ORD" + Date.now();
 
   const order = {
     _id: orderId,
-    name, email, mobile, state,
+    name,
+    email,
+    mobile,
+    state,
     amount: 199,
     paymentStatus: "SUCCESS"
   };
 
+  // Save locally for admin demo
   orders.push(order);
 
   showToast("Payment Successful 🎉", "success");
@@ -1668,16 +1679,17 @@ async function handleCheckout(e) {
   payBtn.disabled = false;
   payText.innerHTML = "Pay with PhonePe";
 
-  // Show success page
+  // 🎉 Show success page
   document.getElementById("success-order-id").innerText = orderId;
   navigateTo("success");
 
-  // 🔓 Auto open secure PDF
+  // 📄 Auto open secure PDF
   setTimeout(() => {
-  console.log("Opening PDF for:", orderId);
-  openPdf(orderId);
-}, 500);
+    console.log("Opening PDF for:", orderId);
+    openPdf(orderId);
+  }, 600);
 }
+
 
 
 
