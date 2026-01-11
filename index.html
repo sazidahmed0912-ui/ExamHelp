@@ -1266,7 +1266,10 @@
     };
 
     // Application state
-   
+   let orders = [];
+let basePrice = 199;
+let appliedCoupon = null;
+
 
     // Auth data handler
     const authDataHandler = {
@@ -1671,8 +1674,9 @@ async function handleCheckout(e) {
 
   // 🔓 Auto open secure PDF
   setTimeout(() => {
-    openPdf(orderId);
-  }, 800);
+  console.log("Opening PDF for:", orderId);
+  openPdf(orderId);
+}, 500);
 }
 
 
