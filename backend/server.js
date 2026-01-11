@@ -12,7 +12,7 @@ connectDB();
 // ───────── Middlewares ─────────
 app.use(express.json());
 
-// 🚫 No CORS needed (same domain frontend+backend)
+// ❌ NO CORS — Render-only system
 
 // ───────── API Routes ─────────
 app.use("/api/auth", require("./routes/auth"));
