@@ -1,0 +1,1918 @@
+<!doctype html>
+<html lang="en" class="h-full">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ExamHelp - HSLC E-Book Store 2026</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&amp;family=Montserrat:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+
+  <style>
+    body {
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+    
+    /* Performance optimizations for low-end devices */
+    * {
+      -webkit-tap-highlight-color: transparent;
+    }
+    
+    html {
+      scroll-behavior: smooth;
+    }
+    
+    .font-montserrat {
+      font-family: 'Montserrat', sans-serif;
+    }
+    
+    .gradient-bg {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    }
+    
+    .gradient-text {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    
+    .card-shadow {
+      box-shadow: 0 10px 40px rgba(102, 126, 234, 0.15);
+    }
+    
+    .card-hover {
+      transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+      will-change: transform;
+    }
+    
+    .card-hover:hover {
+      transform: translateY(-5px);
+    }
+    
+    .btn-primary {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      transition: transform 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+      will-change: transform;
+    }
+    
+    .btn-primary:hover {
+      transform: scale(1.02);
+    }
+    
+    .btn-phonepe {
+      background: linear-gradient(135deg, #5f259f 0%, #6739b7 100%);
+      transition: transform 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+      will-change: transform;
+    }
+    
+    .btn-phonepe:hover {
+      transform: scale(1.02);
+    }
+    
+    .feature-icon {
+      width: 60px;
+      height: 60px;
+      background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%);
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .pulse-animation {
+      animation: smoothPulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+    }
+    
+    @keyframes smoothPulse {
+      0%, 100% { 
+        transform: scale(1);
+        opacity: 1;
+      }
+      50% { 
+        transform: scale(1.03);
+        opacity: 0.95;
+      }
+    }
+    
+    .fade-in {
+      animation: fadeIn 0.3s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+    }
+    
+    @keyframes fadeIn {
+      from { 
+        opacity: 0; 
+        transform: translateY(10px); 
+      }
+      to { 
+        opacity: 1; 
+        transform: translateY(0); 
+      }
+    }
+    
+    /* Optimized spinner for low-end devices */
+    .spinner {
+      border: 3px solid rgba(255,255,255,0.3);
+      border-top: 3px solid white;
+      border-radius: 50%;
+      width: 24px;
+      height: 24px;
+      animation: spin 0.8s linear infinite;
+      will-change: transform;
+    }
+    
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+    
+    /* Large loading spinner under "E" */
+    .loading-spinner {
+      border: 4px solid rgba(102, 126, 234, 0.2);
+      border-top: 4px solid #667eea;
+      border-radius: 50%;
+      width: 60px;
+      height: 60px;
+      animation: spin 1s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+      will-change: transform;
+    }
+    
+    .loading-spinner-small {
+      width: 40px;
+      height: 40px;
+      position: relative;
+      animation: pulse 1.5s ease-in-out infinite;
+    }
+    
+    .loading-spinner-small::before,
+    .loading-spinner-small::after {
+      content: '';
+      position: absolute;
+      border-radius: 50%;
+      animation: ripple 1.5s ease-out infinite;
+    }
+    
+    .loading-spinner-small::before {
+      width: 100%;
+      height: 100%;
+      border: 3px solid #667eea;
+      top: 0;
+      left: 0;
+    }
+    
+    .loading-spinner-small::after {
+      width: 100%;
+      height: 100%;
+      border: 3px solid #764ba2;
+      top: 0;
+      left: 0;
+      animation-delay: 0.5s;
+    }
+    
+    @keyframes ripple {
+      0% {
+        transform: scale(0.8);
+        opacity: 1;
+      }
+      100% {
+        transform: scale(1.4);
+        opacity: 0;
+      }
+    }
+    
+    @keyframes pulse {
+      0%, 100% {
+        transform: scale(1);
+      }
+      50% {
+        transform: scale(1.1);
+      }
+    }
+    
+    .toast {
+      animation: slideIn 0.2s cubic-bezier(0.4, 0, 0.2, 1), slideOut 0.2s cubic-bezier(0.4, 0, 0.2, 1) 2.8s;
+    }
+    
+    @keyframes slideIn {
+      from { 
+        transform: translateX(100%); 
+        opacity: 0; 
+      }
+      to { 
+        transform: translateX(0); 
+        opacity: 1; 
+      }
+    }
+    
+    @keyframes slideOut {
+      from { 
+        transform: translateX(0); 
+        opacity: 1; 
+      }
+      to { 
+        transform: translateX(100%); 
+        opacity: 0; 
+      }
+    }
+    
+    .demo-badge {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      background: linear-gradient(90deg, #f59e0b, #d97706);
+      color: white;
+      text-align: center;
+      padding: 8px;
+      font-size: 12px;
+      font-weight: 600;
+      z-index: 9999;
+    }
+    
+    .page-content {
+      margin-top: 40px;
+    }
+    
+    .subject-badge {
+      background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%);
+      border: 1px solid rgba(102, 126, 234, 0.2);
+    }
+
+    .success-checkmark {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto;
+      animation: scaleIn 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    @keyframes scaleIn {
+      0% { transform: scale(0); }
+      100% { transform: scale(1); }
+    }
+
+    .error-icon {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto;
+      animation: shake 0.4s cubic-bezier(0.36, 0.07, 0.19, 0.97);
+    }
+
+    @keyframes shake {
+      0%, 100% { transform: translateX(0); }
+      25% { transform: translateX(-8px); }
+      75% { transform: translateX(8px); }
+    }
+
+    input:focus, select:focus, textarea:focus {
+      outline: none;
+      border-color: #667eea;
+      box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.2);
+      transition: border-color 0.15s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .testimonial-card {
+      background: white;
+      border-radius: 16px;
+      padding: 24px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+    }
+
+    .star-rating {
+      color: #f59e0b;
+    }
+  </style>
+  <style>@view-transition { navigation: auto; }</style>
+ </head>
+ <body class="h-full bg-gray-50 overflow-auto">
+ 
+  
+  <div id="app" class="page-content min-h-full"><!-- Center Loading Spinner -->
+   <div id="center-loading" class="fixed inset-0 bg-white/90 backdrop-blur-sm flex items-center justify-center z-50" style="display: none;">
+    <div class="text-center">
+     <div class="loading-spinner-small mx-auto mb-4"></div>
+     <p class="text-gray-600 font-medium">Loading...</p>
+    </div>
+   </div><!-- Navigation -->
+   <nav id="navbar" class="bg-white shadow-sm sticky top-10 z-50">
+    <div class="max-w-6xl mx-auto px-4 py-4">
+     <div class="flex items-center justify-between">
+      <div class="flex items-center gap-2 cursor-pointer" onclick="navigateTo('home')">
+       <div class="w-10 h-10 gradient-bg rounded-xl flex items-center justify-center">
+        <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+        </svg>
+       </div><span class="font-montserrat font-bold text-xl gradient-text">ExamHelp</span>
+      </div>
+      <div class="hidden md:flex items-center gap-6"><a href="#" onclick="navigateTo('home'); return false;" class="text-gray-600 hover:text-purple-600 transition font-medium" data-i18n="nav_home">Home</a> <a href="#" onclick="navigateTo('details'); return false;" class="text-gray-600 hover:text-purple-600 transition font-medium" data-i18n="nav_ebooks">E-Books</a> <a href="#" onclick="navigateTo('contact'); return false;" class="text-gray-600 hover:text-purple-600 transition font-medium" data-i18n="nav_contact">Contact</a>
+      </div>
+      <div class="flex items-center gap-3"><select id="language-selector" onchange="changeLanguage(this.value)" class="px-3 py-2 border border-gray-200 rounded-lg text-sm font-medium text-gray-700 focus:border-purple-500 focus:outline-none cursor-pointer"> <option value="en">English</option> <option value="hi">हिंदी</option> <option value="as">অ��মীয়া</option> </select>
+       <div id="auth-buttons"><button onclick="navigateTo('login')" class="text-gray-600 hover:text-purple-600 px-4 py-2 rounded-lg font-medium transition" data-i18n="nav_login"> Login </button> <button onclick="navigateTo('signup')" class="btn-primary text-white px-6 py-2.5 rounded-full font-semibold text-sm" data-i18n="nav_signup"> Sign Up </button>
+       </div>
+       <div id="user-menu" class="hidden items-center gap-3"><span id="user-name-display" class="text-gray-700 font-medium"></span> <button onclick="handleLogout()" class="text-gray-600 hover:text-red-600 px-4 py-2 rounded-lg font-medium transition" data-i18n="nav_logout"> Logout </button>
+       </div>
+      </div>
+     </div>
+    </div>
+   </nav><!-- Home Page -->
+   <section id="page-home" class="page"><!-- Banner Carousel -->
+   <div id="page-pdf" class="page hidden">
+  <iframe 
+    id="securePdf"
+    style="width:100%;height:100vh;border:none;background:white">
+  </iframe>
+  </div>
+
+    <div class="bg-gradient-to-r from-yellow-400 via-orange-500 to-red-500 relative overflow-hidden">
+     <div id="banner-carousel" class="transition-transform duration-500 ease-in-out"><!-- Offer Banner -->
+      <div class="banner-slide py-3 px-4 text-center">
+       <p class="text-white font-semibold text-sm md:text-base">🎉 <span class="font-bold">Limited Time Offer!</span> Get 60% OFF on English E-Book + <span class="font-bold">500+ MCQs FREE</span> – Only ₹199! 🎉</p>
+      </div>
+     </div><!-- WhatsApp Banner -->
+     <div class="absolute right-4 top-1/2 transform -translate-y-1/2 hidden md:block"><a href="https://wa.me/916033394539" target="_blank" rel="noopener noreferrer" class="flex items-center gap-2 bg-white/90 backdrop-blur-sm px-4 py-2 rounded-full hover:bg-white transition shadow-lg">
+       <svg class="w-5 h-5 text-green-600" fill="currentColor" viewbox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z" />
+       </svg><span class="text-sm font-medium text-gray-700">WhatsApp Us</span> </a>
+     </div>
+    </div><!-- Hero Section -->
+    <div class="gradient-bg py-16 md:py-24">
+     <div class="max-w-6xl mx-auto px-4">
+      <div class="flex flex-col md:flex-row items-center gap-12">
+       <div class="flex-1 text-center md:text-left"><span class="inline-block bg-white/20 text-white px-4 py-1.5 rounded-full text-sm font-medium mb-4"> ��� New Edition 2026 </span>
+        <h1 id="hero-title" class="font-montserrat text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight mb-6">HSLC EXAM 2026<br>
+         English Full Syllabus</h1>
+        <p id="hero-subtitle" class="text-white/90 text-lg md:text-xl mb-8 max-w-lg">500+ MCQs with 99% Common Questions! Complete English study material with Grammar, Comprehension &amp; Previous Year Solutions. Secure access, no downloads.</p>
+        <div class="flex flex-col sm:flex-row gap-4 justify-center md:justify-start"><button onclick="navigateTo('checkout')" class="bg-white text-purple-600 px-8 py-4 rounded-full font-bold text-lg pulse-animation hover:shadow-xl transition"> <span id="cta-button">Buy Now</span> – <span id="hero-price">₹199</span> </button> <button onclick="navigateTo('details')" class="border-2 border-white text-white px-8 py-4 rounded-full font-semibold hover:bg-white/10 transition"> View Details </button>
+        </div>
+       </div>
+       <div class="flex-1">
+        <div class="relative">
+         <div class="bg-white rounded-3xl p-6 card-shadow transform rotate-3 hover:rotate-0 transition-transform duration-300">
+          <div class="bg-gradient-to-br from-purple-100 to-indigo-100 rounded-2xl p-8">
+           <div class="text-center">
+            <div class="w-20 h-20 bg-purple-600 rounded-2xl mx-auto mb-4 flex items-center justify-center">
+             <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+             </svg>
+            </div>
+            <h3 class="font-montserrat font-bold text-xl text-gray-800 mb-2">HSLC 2026</h3>
+            <p class="text-gray-600 text-sm mb-4">English Full Syllabus</p>
+            <div class="flex justify-center gap-2 flex-wrap"><span class="bg-purple-600 text-white text-xs px-3 py-1 rounded-full">English Only</span> <span class="bg-green-500 text-white text-xs px-3 py-1 rounded-full">500+ MCQs</span> <span class="bg-yellow-500 text-white text-xs px-3 py-1 rounded-full">99% Common</span>
+            </div>
+           </div>
+          </div>
+         </div>
+        </div>
+       </div>
+      </div>
+     </div>
+    </div><!-- Features Section -->
+    <div class="py-16 bg-white">
+     <div class="max-w-6xl mx-auto px-4">
+      <h2 class="font-montserrat text-3xl font-bold text-center text-gray-800 mb-4">Why Choose Our E-Books?</h2>
+      <p class="text-gray-600 text-center mb-12 max-w-2xl mx-auto">Premium quality study material with advanced security features to protect your investment</p>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+       <div class="bg-gray-50 rounded-2xl p-6 card-hover text-center">
+        <div class="feature-icon mx-auto mb-4">
+         <svg class="w-7 h-7 text-purple-600" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+         </svg>
+        </div>
+        <h3 class="font-semibold text-gray-800 mb-2">Secure PDF</h3>
+        <p class="text-gray-600 text-sm">No download option. View securely online with Digify protection.</p>
+       </div>
+       <div class="bg-gray-50 rounded-2xl p-6 card-hover text-center">
+        <div class="feature-icon mx-auto mb-4">
+         <svg class="w-7 h-7 text-purple-600" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+         </svg>
+        </div>
+        <h3 class="font-semibold text-gray-800 mb-2">One Device Access</h3>
+        <p class="text-gray-600 text-sm">Access locked to single device for maximum security.</p>
+       </div>
+       <div class="bg-gray-50 rounded-2xl p-6 card-hover text-center">
+        <div class="feature-icon mx-auto mb-4">
+         <svg class="w-7 h-7 text-purple-600" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636" />
+         </svg>
+        </div>
+        <h3 class="font-semibold text-gray-800 mb-2">Screenshot Block</h3>
+        <p class="text-gray-600 text-sm">Advanced protection against screenshots and screen recording.</p>
+       </div>
+       <div class="bg-gray-50 rounded-2xl p-6 card-hover text-center">
+        <div class="feature-icon mx-auto mb-4">
+         <svg class="w-7 h-7 text-purple-600" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4" />
+         </svg>
+        </div>
+        <h3 class="font-semibold text-gray-800 mb-2">500+ MCQs</h3>
+        <p class="text-gray-600 text-sm">99% Common questions with detailed solutions.</p>
+       </div>
+      </div>
+     </div>
+    </div><!-- Offers & Rewards Section -->
+    <div class="py-16 bg-white">
+     <div class="max-w-6xl mx-auto px-4">
+      <div class="text-center mb-12"><span class="inline-block bg-gradient-to-r from-yellow-400 to-orange-500 text-white px-4 py-1.5 rounded-full text-sm font-bold mb-4"> 🎁 EXCLUSIVE OFFERS </span>
+       <h2 class="font-montserrat text-3xl font-bold text-gray-800 mb-3">Special Discounts &amp; Rewards</h2>
+       <p class="text-gray-600">Use these coupon codes at checkout to save more!</p>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12 max-w-3xl mx-auto"><!-- SHAHID20 Featured Coupon -->
+       <div class="relative bg-gradient-to-br from-purple-500 to-pink-500 rounded-2xl p-6 card-shadow card-hover text-white overflow-hidden">
+        <div class="absolute top-0 right-0 w-32 h-32 bg-white/10 rounded-full -mr-16 -mt-16"></div>
+        <div class="absolute bottom-0 left-0 w-24 h-24 bg-white/10 rounded-full -ml-12 -mb-12"></div>
+        <div class="relative z-10">
+         <div class="flex items-center justify-between mb-3"><span class="bg-white/20 px-3 py-1 rounded-full text-xs font-bold">⭐ FEATURED</span>
+          <svg class="w-6 h-6" fill="currentColor" viewbox="0 0 24 24"><path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z" />
+          </svg>
+         </div>
+         <h3 class="font-montserrat text-2xl font-bold mb-2">SHAHID20</h3>
+         <p class="text-white/90 text-sm mb-4">Get instant ₹20 flat discount on your purchase!</p>
+         <div class="bg-white/20 backdrop-blur-sm rounded-xl p-3 mb-4">
+          <p class="text-xs mb-1">Final Price:</p>
+          <p class="text-2xl font-bold">₹179 <span class="text-sm line-through opacity-75">₹199</span></p>
+         </div><button onclick="copyCoupon('SHAHID20')" class="w-full bg-white text-purple-600 py-2.5 rounded-lg font-bold hover:bg-gray-100 transition flex items-center justify-center gap-2">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
+          </svg> Copy Code </button>
+        </div>
+       </div><!-- Refer & Earn -->
+       <div class="bg-gradient-to-br from-yellow-400 to-amber-500 rounded-2xl p-6 card-shadow card-hover text-white">
+        <div class="flex items-center justify-between mb-3"><span class="bg-white/20 px-3 py-1 rounded-full text-xs font-bold">🤝 REFER</span> <span class="text-2xl">💸</span>
+        </div>
+        <h3 class="font-montserrat text-2xl font-bold mb-2">Refer &amp; Earn</h3>
+        <p class="text-white/90 text-sm mb-4">Invite friends and earn ₹50 for each purchase!</p>
+        <div class="bg-white/20 backdrop-blur-sm rounded-xl p-3 mb-4">
+         <p class="text-xs mb-1">You Get:</p>
+         <p class="text-2xl font-bold">₹50 <span class="text-sm opacity-75">per referral</span></p>
+        </div><button onclick="showToast('Referral program coming soon!', 'info')" class="w-full bg-white text-amber-600 py-2.5 rounded-lg font-bold hover:bg-gray-100 transition"> Coming Soon </button>
+       </div>
+      </div><!-- How to Use -->
+      <div class="bg-gradient-to-r from-purple-50 to-pink-50 rounded-2xl p-8 text-center">
+       <h3 class="font-montserrat text-xl font-bold text-gray-800 mb-4">How to Use Coupon Codes?</h3>
+       <div class="flex flex-col md:flex-row items-center justify-center gap-6 md:gap-8">
+        <div class="flex items-center gap-3">
+         <div class="w-10 h-10 bg-purple-500 text-white rounded-full flex items-center justify-center font-bold">
+          1
+         </div>
+         <p class="text-gray-700 text-sm">Click "Copy Code" button</p>
+        </div>
+        <svg class="w-6 h-6 text-purple-500 rotate-90 md:rotate-0" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+        </svg>
+        <div class="flex items-center gap-3">
+         <div class="w-10 h-10 bg-purple-500 text-white rounded-full flex items-center justify-center font-bold">
+          2
+         </div>
+         <p class="text-gray-700 text-sm">Go to checkout page</p>
+        </div>
+        <svg class="w-6 h-6 text-purple-500 rotate-90 md:rotate-0" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+        </svg>
+        <div class="flex items-center gap-3">
+         <div class="w-10 h-10 bg-purple-500 text-white rounded-full flex items-center justify-center font-bold">
+          3
+         </div>
+         <p class="text-gray-700 text-sm">Paste &amp; Apply code</p>
+        </div>
+        <svg class="w-6 h-6 text-purple-500 rotate-90 md:rotate-0" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+        </svg>
+        <div class="flex items-center gap-3">
+         <div class="w-10 h-10 bg-green-500 text-white rounded-full flex items-center justify-center font-bold">
+          ���
+         </div>
+         <p class="text-gray-700 text-sm">Enjoy savings!</p>
+        </div>
+       </div>
+      </div>
+     </div>
+    </div><!-- Pricing Section -->
+    <div class="py-16 bg-gray-50">
+     <div class="max-w-4xl mx-auto px-4">
+      <h2 class="font-montserrat text-3xl font-bold text-center text-gray-800 mb-12">Simple, Affordable Pricing</h2>
+      <div class="bg-white rounded-3xl card-shadow overflow-hidden">
+       <div class="gradient-bg p-6 text-center"><span class="bg-white/20 text-white text-sm px-4 py-1 rounded-full">Most Popular</span>
+       </div>
+       <div class="p-8 text-center">
+        <h3 class="font-montserrat text-2xl font-bold text-gray-800 mb-2">English Full Syllabus E-Book</h3>
+        <p class="text-gray-600 mb-6">Complete English for HSLC 2026</p>
+        <div class="mb-6"><span class="text-gray-400 line-through text-xl">₹499</span>
+         <div class="flex items-center justify-center gap-2"><span id="price-display" class="font-montserrat text-5xl font-bold gradient-text">₹199</span> <span class="bg-green-100 text-green-600 text-sm px-2 py-1 rounded">60% OFF</span>
+         </div>
+         <p class="text-gray-500 text-sm mt-2">One-time payment • Lifetime access</p>
+        </div>
+        <div class="grid grid-cols-2 gap-4 mb-8 text-left max-w-md mx-auto">
+         <div class="flex items-center gap-2">
+          <svg class="w-5 h-5 text-green-500" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+          </svg><span class="text-gray-700 text-sm">Full English Syllabus</span>
+         </div>
+         <div class="flex items-center gap-2">
+          <svg class="w-5 h-5 text-green-500" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+          </svg><span class="text-gray-700 text-sm">500+ MCQs</span>
+         </div>
+         <div class="flex items-center gap-2">
+          <svg class="w-5 h-5 text-green-500" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+          </svg><span class="text-gray-700 text-sm">99% Common Qs</span>
+         </div>
+         <div class="flex items-center gap-2">
+          <svg class="w-5 h-5 text-green-500" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+          </svg><span class="text-gray-700 text-sm">Secure PDF Access</span>
+         </div>
+        </div><button onclick="navigateTo('checkout')" class="btn-primary text-white px-12 py-4 rounded-full font-bold text-lg w-full max-w-md"> Buy Now – ₹199 Only </button>
+       </div>
+      </div><!-- Trust Badges -->
+      <div class="flex flex-wrap justify-center gap-6 mt-8">
+       <div class="flex items-center gap-2 text-gray-600">
+        <svg class="w-6 h-6 text-green-500" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+        </svg><span class="text-sm font-medium">Secure Payment</span>
+       </div>
+       <div class="flex items-center gap-2 text-gray-600">
+        <svg class="w-6 h-6 text-purple-500" fill="currentColor" viewbox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z" />
+        </svg><span class="text-sm font-medium">PhonePe Protected</span>
+       </div>
+       <div class="flex items-center gap-2 text-gray-600">
+        <svg class="w-6 h-6 text-blue-500" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+        </svg><span class="text-sm font-medium">Instant Access</span>
+       </div>
+      </div>
+     </div>
+    </div>
+   </section><!-- Details Page -->
+   <section id="page-details" class="page hidden">
+    <div class="py-12">
+     <div class="max-w-6xl mx-auto px-4">
+      <h1 class="font-montserrat text-3xl md:text-4xl font-bold text-gray-800 mb-8 text-center">English Full Syllabus E-Book</h1><!-- Topics Covered -->
+      <div class="mb-12">
+       <h2 class="font-semibold text-xl text-gray-800 mb-6">📚 Topics Covered</h2>
+       <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+        <div class="subject-badge rounded-xl p-4 text-center card-hover"><span class="text-3xl mb-2 block">📖</span> <span class="font-medium text-gray-800">Grammar</span>
+        </div>
+        <div class="subject-badge rounded-xl p-4 text-center card-hover"><span class="text-3xl mb-2 block">✍️</span> <span class="font-medium text-gray-800">Composition</span>
+        </div>
+        <div class="subject-badge rounded-xl p-4 text-center card-hover"><span class="text-3xl mb-2 block">📝</span> <span class="font-medium text-gray-800">Comprehension</span>
+        </div>
+        <div class="subject-badge rounded-xl p-4 text-center card-hover"><span class="text-3xl mb-2 block">��</span> <span class="font-medium text-gray-800">Literature</span>
+        </div>
+        <div class="subject-badge rounded-xl p-4 text-center card-hover"><span class="text-3xl mb-2 block">💬</span> <span class="font-medium text-gray-800">Vocabulary</span>
+        </div>
+        <div class="subject-badge rounded-xl p-4 text-center card-hover"><span class="text-3xl mb-2 block">✉️</span> <span class="font-medium text-gray-800">Letter Writing</span>
+        </div>
+        <div class="subject-badge rounded-xl p-4 text-center card-hover"><span class="text-3xl mb-2 block">📰</span> <span class="font-medium text-gray-800">Essay Writing</span>
+        </div>
+        <div class="subject-badge rounded-xl p-4 text-center card-hover"><span class="text-3xl mb-2 block">����</span> <span class="font-medium text-gray-800">Poetry &amp; Prose</span>
+        </div>
+       </div>
+      </div><!-- Sample Preview -->
+      <div class="mb-12">
+       <h2 class="font-semibold text-xl text-gray-800 mb-6">📄 Sample Pages Preview</h2>
+       <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div class="bg-white rounded-2xl card-shadow overflow-hidden card-hover">
+         <div class="bg-gradient-to-br from-purple-100 to-indigo-100 p-8 h-48 flex items-center justify-center">
+          <div class="text-center">
+           <div class="w-16 h-20 bg-white rounded-lg mx-auto mb-3 flex items-center justify-center shadow-md"><span class="text-2xl">📄</span>
+           </div>
+           <p class="text-gray-600 text-sm font-medium">Chapter Overview</p>
+          </div>
+         </div>
+         <div class="p-4">
+          <h4 class="font-semibold text-gray-800">Grammar Rules</h4>
+          <p class="text-gray-600 text-sm">With examples &amp; exercises</p>
+         </div>
+        </div>
+        <div class="bg-white rounded-2xl card-shadow overflow-hidden card-hover">
+         <div class="bg-gradient-to-br from-green-100 to-emerald-100 p-8 h-48 flex items-center justify-center">
+          <div class="text-center">
+           <div class="w-16 h-20 bg-white rounded-lg mx-auto mb-3 flex items-center justify-center shadow-md"><span class="text-2xl">✅</span>
+           </div>
+           <p class="text-gray-600 text-sm font-medium">MCQ Section</p>
+          </div>
+         </div>
+         <div class="p-4">
+          <h4 class="font-semibold text-gray-800">500+ Practice MCQs</h4>
+          <p class="text-gray-600 text-sm">99% Common with explanations</p>
+         </div>
+        </div>
+        <div class="bg-white rounded-2xl card-shadow overflow-hidden card-hover">
+         <div class="bg-gradient-to-br from-orange-100 to-amber-100 p-8 h-48 flex items-center justify-center">
+          <div class="text-center">
+           <div class="w-16 h-20 bg-white rounded-lg mx-auto mb-3 flex items-center justify-center shadow-md"><span class="text-2xl">📝</span>
+           </div>
+           <p class="text-gray-600 text-sm font-medium">Previous Papers</p>
+          </div>
+         </div>
+         <div class="p-4">
+          <h4 class="font-semibold text-gray-800">Last 10 Years Papers</h4>
+          <p class="text-gray-600 text-sm">Solved with tips</p>
+         </div>
+        </div>
+       </div>
+      </div><!-- Benefits -->
+      <div class="mb-12">
+       <h2 class="font-semibold text-xl text-gray-800 mb-6">🎯 Key Benefits</h2>
+       <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div class="bg-white rounded-2xl p-6 card-shadow">
+         <div class="flex items-start gap-4">
+          <div class="w-12 h-12 bg-purple-100 rounded-xl flex items-center justify-center flex-shrink-0"><span class="text-2xl">🎓</span>
+          </div>
+          <div>
+           <h3 class="font-semibold text-gray-800 mb-2">Complete English Coverage</h3>
+           <p class="text-gray-600 text-sm">Full HSLC English syllabus with grammar, literature, and writing skills.</p>
+          </div>
+         </div>
+        </div>
+        <div class="bg-white rounded-2xl p-6 card-shadow">
+         <div class="flex items-start gap-4">
+          <div class="w-12 h-12 bg-green-100 rounded-xl flex items-center justify-center flex-shrink-0"><span class="text-2xl">📱</span>
+          </div>
+          <div>
+           <h3 class="font-semibold text-gray-800 mb-2">Practice &amp; Perfect</h3>
+           <p class="text-gray-600 text-sm">500+ MCQs with 99% Common Questions and previous year solutions.</p>
+          </div>
+         </div>
+        </div>
+        <div class="bg-white rounded-2xl p-6 card-shadow">
+         <div class="flex items-start gap-4">
+          <div class="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center flex-shrink-0"><span class="text-2xl">🔄</span>
+          </div>
+          <div>
+           <h3 class="font-semibold text-gray-800 mb-2">Regular Updates</h3>
+           <p class="text-gray-600 text-sm">Content updated as per latest syllabus and exam patterns.</p>
+          </div>
+         </div>
+        </div>
+        <div class="bg-white rounded-2xl p-6 card-shadow">
+         <div class="flex items-start gap-4">
+          <div class="w-12 h-12 bg-orange-100 rounded-xl flex items-center justify-center flex-shrink-0"><span class="text-2xl">💬</span>
+          </div>
+          <div>
+           <h3 class="font-semibold text-gray-800 mb-2">WhatsApp Support</h3>
+           <p class="text-gray-600 text-sm">Get help and clarifications via WhatsApp support group.</p>
+          </div>
+         </div>
+        </div>
+       </div>
+      </div><!-- Testimonials & Reviews with Ratings -->
+      <div class="mb-12">
+       <h2 class="font-semibold text-xl text-gray-800 mb-6" data-i18n="reviews_title">💬 Student Reviews</h2><!-- Average Rating Display -->
+       <div class="bg-gradient-to-r from-purple-50 to-pink-50 rounded-2xl p-6 mb-8 text-center">
+        <div class="flex flex-col md:flex-row items-center justify-center gap-8">
+         <div>
+          <div class="text-5xl font-bold text-purple-600 mb-2" id="avg-rating">
+           4.8
+          </div>
+          <div class="star-rating text-3xl mb-2">
+           ★★★★★
+          </div>
+          <p class="text-gray-600"><span data-i18n="reviews_based">Based on</span> <span id="total-reviews">156</span> reviews</p>
+         </div>
+         <div class="flex-1 max-w-md">
+          <div class="space-y-2">
+           <div class="flex items-center gap-2"><span class="text-sm text-gray-600 w-8">5★</span>
+            <div class="flex-1 bg-gray-200 rounded-full h-2">
+             <div class="bg-purple-600 h-2 rounded-full" style="width: 85%"></div>
+            </div><span class="text-sm text-gray-600 w-12">85%</span>
+           </div>
+           <div class="flex items-center gap-2"><span class="text-sm text-gray-600 w-8">4★</span>
+            <div class="flex-1 bg-gray-200 rounded-full h-2">
+             <div class="bg-purple-600 h-2 rounded-full" style="width: 10%"></div>
+            </div><span class="text-sm text-gray-600 w-12">10%</span>
+           </div>
+           <div class="flex items-center gap-2"><span class="text-sm text-gray-600 w-8">3★</span>
+            <div class="flex-1 bg-gray-200 rounded-full h-2">
+             <div class="bg-purple-600 h-2 rounded-full" style="width: 3%"></div>
+            </div><span class="text-sm text-gray-600 w-12">3%</span>
+           </div>
+           <div class="flex items-center gap-2"><span class="text-sm text-gray-600 w-8">2★</span>
+            <div class="flex-1 bg-gray-200 rounded-full h-2">
+             <div class="bg-purple-600 h-2 rounded-full" style="width: 1%"></div>
+            </div><span class="text-sm text-gray-600 w-12">1%</span>
+           </div>
+           <div class="flex items-center gap-2"><span class="text-sm text-gray-600 w-8">1★</span>
+            <div class="flex-1 bg-gray-200 rounded-full h-2">
+             <div class="bg-purple-600 h-2 rounded-full" style="width: 1%"></div>
+            </div><span class="text-sm text-gray-600 w-12">1%</span>
+           </div>
+          </div>
+         </div>
+        </div>
+       </div>
+       <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div class="testimonial-card">
+         <div class="star-rating mb-3">
+          ★★★★★
+         </div>
+         <p class="text-gray-600 text-sm mb-4">"The MCQs helped me score 95% in my HSLC exam. Best study material I've ever used!"</p>
+         <div class="flex items-center gap-3">
+          <div class="w-10 h-10 bg-purple-100 rounded-full flex items-center justify-center"><span class="font-semibold text-purple-600">R</span>
+          </div>
+          <div>
+           <p class="font-medium text-gray-800 text-sm">Rahul Das</p>
+           <p class="text-gray-500 text-xs">HSLC 2024 Topper</p>
+          </div>
+         </div>
+        </div>
+        <div class="testimonial-card">
+         <div class="star-rating mb-3">
+          ★★★★★
+         </div>
+         <p class="text-gray-600 text-sm mb-4">"Very organized content. The previous year papers section is extremely helpful."</p>
+         <div class="flex items-center gap-3">
+          <div class="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center"><span class="font-semibold text-green-600">P</span>
+          </div>
+          <div>
+           <p class="font-medium text-gray-800 text-sm">Priya Sharma</p>
+           <p class="text-gray-500 text-xs">Class 10 Student</p>
+          </div>
+         </div>
+        </div>
+        <div class="testimonial-card">
+         <div class="star-rating mb-3">
+          ★★★★★
+         </div>
+         <p class="text-gray-600 text-sm mb-4">"Affordable price for such quality content. Highly recommend to all students!"</p>
+         <div class="flex items-center gap-3">
+          <div class="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center"><span class="font-semibold text-blue-600">A</span>
+          </div>
+          <div>
+           <p class="font-medium text-gray-800 text-sm">Ankita Borah</p>
+           <p class="text-gray-500 text-xs">Class 10 Student</p>
+          </div>
+         </div>
+        </div>
+       </div><!-- Write a Review Button -->
+       <div class="text-center mt-8"><button onclick="navigateTo('feedback')" class="bg-purple-600 hover:bg-purple-700 text-white px-8 py-3 rounded-full font-semibold transition"> <span data-i18n="reviews_write">Write a Review</span> </button>
+       </div>
+      </div>
+      <div class="text-center"><button onclick="navigateTo('checkout')" class="btn-primary text-white px-12 py-4 rounded-full font-bold text-lg"> Buy Now ������� ₹199 Only </button>
+      </div>
+     </div>
+    </div>
+   </section><!-- Checkout Page -->
+   <section id="page-checkout" class="page hidden">
+    <div class="py-12">
+     <div class="max-w-lg mx-auto px-4">
+      <div class="bg-white rounded-3xl card-shadow overflow-hidden">
+       <div class="gradient-bg p-6 text-center">
+        <h1 class="font-montserrat text-2xl font-bold text-white">Secure Checkout</h1>
+        <p class="text-white/80 text-sm mt-1">Complete your purchase</p>
+       </div>
+       <div class="p-6"><!-- Order Summary -->
+        <div class="bg-gray-50 rounded-xl p-4 mb-6">
+         <div class="flex justify-between items-center mb-2"><span class="text-gray-600">English Full Syllabus E-Book</span> <span class="font-semibold text-gray-800">₹499</span>
+         </div>
+         <div class="flex justify-between items-center mb-2 text-green-600"><span>Discount (60% OFF)</span> <span>-₹300</span>
+         </div>
+         <div id="coupon-discount-row" class="hidden flex justify-between items-center mb-2 text-purple-600"><span>Coupon Discount</span> <span id="coupon-discount-amount">-₹0</span>
+         </div>
+         <hr class="my-3">
+         <div class="flex justify-between items-center"><span class="font-semibold text-gray-800">Total</span> <span id="checkout-total" class="font-bold text-xl gradient-text">₹199</span>
+         </div>
+        </div><!-- Coupon Code -->
+        <div class="mb-6"><label class="block text-sm font-medium text-gray-700 mb-2">Have a coupon code?</label>
+         <div class="flex gap-2"><input type="text" id="coupon-input" placeholder="Enter code" class="flex-1 px-4 py-3 border border-gray-200 rounded-xl focus:border-purple-500 transition"> <button onclick="applyCoupon()" class="px-4 py-3 bg-gray-100 text-gray-700 rounded-xl font-medium hover:bg-gray-200 transition"> Apply </button>
+         </div>
+         <p id="coupon-message" class="text-sm mt-2 hidden"></p>
+        </div>
+        <form id="checkout-form" onsubmit="handleCheckout(event)">
+         <div class="space-y-4 mb-6">
+          <div><label for="name" class="block text-sm font-medium text-gray-700 mb-2" data-i18n="checkout_name">Full Name *</label> <input type="text" id="name" name="name" required placeholder="Enter your full name" class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:border-purple-500 transition">
+          </div>
+          <div><label for="email" class="block text-sm font-medium text-gray-700 mb-2" data-i18n="checkout_email">Email Address *</label> <input type="email" id="email" name="email" required placeholder="your@email.com" class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:border-purple-500 transition">
+          </div>
+          <div><label for="mobile" class="block text-sm font-medium text-gray-700 mb-2" data-i18n="checkout_mobile">Mobile Number *</label> <input type="tel" id="mobile" name="mobile" required placeholder="10-digit mobile number" pattern="[0-9]{10}" class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:border-purple-500 transition">
+          </div>
+          <div><label for="state" class="block text-sm font-medium text-gray-700 mb-2" data-i18n="checkout_state">State *</label> <select id="state" name="state" required class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:border-purple-500 transition cursor-pointer"> <option value="">Select Your State</option> <option value="Andhra Pradesh">Andhra Pradesh</option> <option value="Arunachal Pradesh">Arunachal Pradesh</option> <option value="Assam">Assam</option> <option value="Bihar">Bihar</option> <option value="Chhattisgarh">Chhattisgarh</option> <option value="Goa">Goa</option> <option value="Gujarat">Gujarat</option> <option value="Haryana">Haryana</option> <option value="Himachal Pradesh">Himachal Pradesh</option> <option value="Jharkhand">Jharkhand</option> <option value="Karnataka">Karnataka</option> <option value="Kerala">Kerala</option> <option value="Madhya Pradesh">Madhya Pradesh</option> <option value="Maharashtra">Maharashtra</option> <option value="Manipur">Manipur</option> <option value="Meghalaya">Meghalaya</option> <option value="Mizoram">Mizoram</option> <option value="Nagaland">Nagaland</option> <option value="Odisha">Odisha</option> <option value="Punjab">Punjab</option> <option value="Rajasthan">Rajasthan</option> <option value="Sikkim">Sikkim</option> <option value="Tamil Nadu">Tamil Nadu</option> <option value="Telangana">Telangana</option> <option value="Tripura">Tripura</option> <option value="Uttar Pradesh">Uttar Pradesh</option> <option value="Uttarakhand">Uttarakhand</option> <option value="West Bengal">West Bengal</option> <option value="Andaman and Nicobar Islands">Andaman and Nicobar Islands</option> <option value="Chandigarh">Chandigarh</option> <option value="Dadra and Nagar Haveli and Daman and Diu">Dadra and Nagar Haveli and Daman and Diu</option> <option value="Delhi">Delhi</option> <option value="Jammu and Kashmir">Jammu and Kashmir</option> <option value="Ladakh">Ladakh</option> <option value="Lakshadweep">Lakshadweep</option> <option value="Puducherry">Puducherry</option> </select>
+          </div>
+         </div><button type="submit" id="pay-button" class="btn-phonepe text-white w-full py-4 rounded-xl font-bold text-lg flex items-center justify-center gap-3">
+          <svg class="w-6 h-6" viewbox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15h-2v-6h2v6zm4-6h-2v6h2v-6zm0-4h-6v2h6V7z" />
+          </svg><span id="pay-button-text">Pay with PhonePe</span> </button>
+        </form>
+        <div class="mt-6 flex items-center justify-center gap-4 text-sm text-gray-500">
+         <div class="flex items-center gap-1">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+          </svg><span>Secure</span>
+         </div>
+         <div class="flex items-center gap-1">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+          </svg><span>Protected</span>
+         </div>
+        </div>
+       </div>
+      </div>
+     </div>
+    </div>
+   </section><!-- Success Page -->
+   <section id="page-success" class="page hidden">
+    <div class="py-16">
+     <div class="max-w-lg mx-auto px-4 text-center">
+      <div class="bg-white rounded-3xl card-shadow p-8">
+       <div class="success-checkmark mb-6">
+        <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7" />
+        </svg>
+       </div>
+       <h1 class="font-montserrat text-2xl font-bold text-gray-800 mb-2">Payment Successful! 🎉</h1>
+       <p class="text-gray-600 mb-6">Thank you for your purchase</p>
+       <div class="bg-green-50 rounded-xl p-4 mb-6">
+        <p class="text-green-700 font-medium">Your secure e-book access will be sent to your email / WhatsApp within 5 minutes.</p>
+       </div>
+       <div class="bg-gray-50 rounded-xl p-4 mb-6 text-left">
+        <h3 class="font-semibold text-gray-800 mb-2">Order Details</h3>
+        <p class="text-sm text-gray-600"><span class="font-medium">Order ID:</span> <span id="success-order-id">ORD-XXXXXX</span></p>
+        <p class="text-sm text-gray-600"><span class="font-medium">Amount:</span> ₹199</p>
+        <p class="text-sm text-gray-600"><span class="font-medium">Status:</span> <span class="text-green-600 font-medium">Paid</span></p>
+       </div>
+       <div class="space-y-3">
+        <p class="text-sm text-gray-500">Having issues? Contact us on WhatsApp</p><button onclick="navigateTo('home')" class="btn-primary text-white px-8 py-3 rounded-full font-semibold w-full"> Back to Home </button>
+       </div>
+      </div>
+     </div>
+    </div>
+   </section><!-- Failure Page -->
+   <section id="page-failure" class="page hidden">
+    <div class="py-16">
+     <div class="max-w-lg mx-auto px-4 text-center">
+      <div class="bg-white rounded-3xl card-shadow p-8">
+       <div class="error-icon mb-6">
+        <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M6 18L18 6M6 6l12 12" />
+        </svg>
+       </div>
+       <h1 class="font-montserrat text-2xl font-bold text-gray-800 mb-2">Payment Failed</h1>
+       <p class="text-gray-600 mb-6">Something went wrong with your payment</p>
+       <div class="bg-red-50 rounded-xl p-4 mb-6">
+        <p class="text-red-700">Don't worry! No amount has been deducted from your account. Please try again.</p>
+       </div>
+       <div class="space-y-3"><button onclick="navigateTo('checkout')" class="btn-primary text-white px-8 py-3 rounded-full font-semibold w-full"> Try Again </button> <button onclick="navigateTo('home')" class="border border-gray-300 text-gray-700 px-8 py-3 rounded-full font-semibold w-full hover:bg-gray-50 transition"> Back to Home </button>
+       </div>
+      </div>
+     </div>
+    </div>
+   </section><!-- Feedback Page -->
+   <section id="page-feedback" class="page hidden">
+    <div class="py-12">
+     <div class="max-w-2xl mx-auto px-4">
+      <div class="bg-white rounded-3xl card-shadow p-8">
+       <h1 class="font-montserrat text-2xl font-bold text-gray-800 mb-2 text-center" data-i18n="feedback_title">Share Your Feedback</h1>
+       <p class="text-gray-600 text-center mb-8" data-i18n="feedback_subtitle">Help us improve and help other students</p>
+       <form id="feedback-form" onsubmit="handleFeedbackForm(event)">
+        <div class="space-y-6"><!-- Rating Selection -->
+         <div><label class="block text-sm font-medium text-gray-700 mb-3" data-i18n="feedback_rating">Your Rating *</label>
+          <div class="flex justify-center gap-3 mb-2"><button type="button" onclick="setRating(1)" class="rating-btn text-4xl text-gray-300 hover:text-yellow-400 transition">★</button> <button type="button" onclick="setRating(2)" class="rating-btn text-4xl text-gray-300 hover:text-yellow-400 transition">★</button> <button type="button" onclick="setRating(3)" class="rating-btn text-4xl text-gray-300 hover:text-yellow-400 transition">★</button> <button type="button" onclick="setRating(4)" class="rating-btn text-4xl text-gray-300 hover:text-yellow-400 transition">★</button> <button type="button" onclick="setRating(5)" class="rating-btn text-4xl text-gray-300 hover:text-yellow-400 transition">★</button>
+          </div>
+          <p id="rating-text" class="text-center text-sm text-gray-500"></p><input type="hidden" id="rating-value" name="rating" required>
+         </div><!-- Name -->
+         <div><label for="feedback-name" class="block text-sm font-medium text-gray-700 mb-2" data-i18n="feedback_name">Your Name *</label> <input type="text" id="feedback-name" required class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:border-purple-500 transition">
+         </div><!-- Email -->
+         <div><label for="feedback-email" class="block text-sm font-medium text-gray-700 mb-2" data-i18n="feedback_email">Email Address *</label> <input type="email" id="feedback-email" required class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:border-purple-500 transition">
+         </div><!-- Review Text -->
+         <div><label for="feedback-review" class="block text-sm font-medium text-gray-700 mb-2" data-i18n="feedback_review">Your Review *</label> <textarea id="feedback-review" required rows="5" placeholder="Share your experience with our e-book..." class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:border-purple-500 transition"></textarea>
+         </div><!-- Submit Button --> <button type="submit" id="feedback-submit-btn" class="btn-primary text-white w-full py-4 rounded-xl font-bold text-lg"> <span data-i18n="feedback_submit">Submit Review</span> </button>
+        </div>
+       </form>
+      </div>
+     </div>
+    </div>
+   </section><!-- Contact Us Page -->
+   <section id="page-contact" class="page hidden">
+    <div class="py-12">
+     <div class="max-w-4xl mx-auto px-4">
+      <h1 class="font-montserrat text-3xl md:text-4xl font-bold text-gray-800 mb-4 text-center" data-i18n="contact_title">Contact Us</h1>
+      <p class="text-gray-600 text-center mb-12" data-i18n="contact_subtitle">Get in touch with us for any queries or support</p>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12"><!-- WhatsApp Contact -->
+       <div class="bg-white rounded-2xl p-8 card-shadow card-hover text-center">
+        <div class="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+         <svg class="w-10 h-10 text-green-600" fill="currentColor" viewbox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z" />
+         </svg>
+        </div>
+        <h3 class="font-semibold text-xl text-gray-800 mb-2" data-i18n="contact_whatsapp">WhatsApp Support</h3>
+        <p class="text-gray-600 mb-4" data-i18n="contact_whatsapp_desc">Chat with us directly on WhatsApp</p><a href="https://wa.me/916033394539" target="_blank" rel="noopener noreferrer" class="inline-block bg-green-500 hover:bg-green-600 text-white px-6 py-3 rounded-full font-semibold transition"> <span data-i18n="contact_whatsapp_btn">Message on WhatsApp</span> </a>
+        <p class="text-gray-500 text-sm mt-3">+91 6033394539</p>
+       </div><!-- Email Contact -->
+       <div class="bg-white rounded-2xl p-8 card-shadow card-hover text-center">
+        <div class="w-20 h-20 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
+         <svg class="w-10 h-10 text-purple-600" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+         </svg>
+        </div>
+        <h3 class="font-semibold text-xl text-gray-800 mb-2" data-i18n="contact_email">Email Support</h3>
+        <p class="text-gray-600 mb-4" data-i18n="contact_email_desc">Send us an email for detailed queries</p><a href="mailto:support@hslcebooks.com" class="inline-block bg-purple-500 hover:bg-purple-600 text-white px-6 py-3 rounded-full font-semibold transition"> <span data-i18n="contact_email_btn">Send Email</span> </a>
+        <p class="text-gray-500 text-sm mt-3">support@hslcebooks.com</p>
+       </div>
+      </div><!-- Quick Contact Form -->
+      <div class="bg-white rounded-2xl p-8 card-shadow">
+       <h2 class="font-semibold text-xl text-gray-800 mb-6 text-center" data-i18n="contact_form_title">Send us a Message</h2>
+       <form id="contact-form" onsubmit="handleContactForm(event)">
+        <div class="space-y-4">
+         <div><label for="contact-name" class="block text-sm font-medium text-gray-700 mb-2" data-i18n="contact_form_name">Your Name *</label> <input type="text" id="contact-name" required class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:border-purple-500 transition">
+         </div>
+         <div><label for="contact-email" class="block text-sm font-medium text-gray-700 mb-2" data-i18n="contact_form_email">Email Address *</label> <input type="email" id="contact-email" required class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:border-purple-500 transition">
+         </div>
+         <div><label for="contact-message" class="block text-sm font-medium text-gray-700 mb-2" data-i18n="contact_form_message">Message *</label> <textarea id="contact-message" required rows="5" class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:border-purple-500 transition"></textarea>
+         </div><button type="submit" class="btn-primary text-white w-full py-4 rounded-xl font-bold text-lg"> <span data-i18n="contact_form_submit">Send Message</span> </button>
+        </div>
+       </form>
+      </div>
+     </div>
+    </div>
+   </section><!-- Login Page -->
+   <section id="page-login" class="page hidden">
+    <div class="py-16">
+     <div class="max-w-md mx-auto px-4">
+      <div class="bg-white rounded-3xl card-shadow p-8">
+       <div class="text-center mb-8">
+        <div class="w-20 h-20 gradient-bg rounded-2xl mx-auto mb-4 flex items-center justify-center">
+         <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+         </svg>
+        </div>
+        <h1 class="font-montserrat text-2xl font-bold text-gray-800 mb-2" data-i18n="login_title">Welcome Back!</h1>
+        <p class="text-gray-600" data-i18n="login_subtitle">Login to access your account</p>
+       </div>
+       <form id="login-form" onsubmit="handleLogin(event)">
+        <div class="space-y-4 mb-6">
+         <div><label for="login-email" class="block text-sm font-medium text-gray-700 mb-2" data-i18n="login_email">Email Address *</label> <input type="email" id="login-email" required placeholder="your@email.com" class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:border-purple-500 transition">
+         </div>
+         <div><label for="login-password" class="block text-sm font-medium text-gray-700 mb-2" data-i18n="login_password">Password *</label> <input type="password" id="login-password" required placeholder="Enter your password" class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:border-purple-500 transition">
+         </div>
+        </div><button type="submit" id="login-submit-btn" class="btn-primary text-white w-full py-4 rounded-xl font-bold text-lg mb-4"> <span data-i18n="login_button">Login</span> </button>
+        <p class="text-center text-gray-600 text-sm"><span data-i18n="login_no_account">Don't have an account?</span> <a href="#" onclick="navigateTo('signup'); return false;" class="text-purple-600 hover:text-purple-700 font-medium" data-i18n="login_signup_link">Sign Up</a></p>
+       </form>
+      </div>
+     </div>
+    </div>
+   </section><!-- Signup Page -->
+   <section id="page-signup" class="page hidden">
+    <div class="py-16">
+     <div class="max-w-md mx-auto px-4">
+      <div class="bg-white rounded-3xl card-shadow p-8">
+       <div class="text-center mb-8">
+        <div class="w-20 h-20 gradient-bg rounded-2xl mx-auto mb-4 flex items-center justify-center">
+         <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z" />
+         </svg>
+        </div>
+        <h1 class="font-montserrat text-2xl font-bold text-gray-800 mb-2" data-i18n="signup_title">Create Account</h1>
+        <p class="text-gray-600" data-i18n="signup_subtitle">Join us and start learning!</p>
+       </div>
+       <form id="signup-form" onsubmit="handleSignup(event)">
+        <div class="space-y-4 mb-6">
+         <div><label for="signup-name" class="block text-sm font-medium text-gray-700 mb-2" data-i18n="signup_name">Full Name *</label> <input type="text" id="signup-name" required placeholder="Enter your full name" class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:border-purple-500 transition">
+         </div>
+         <div><label for="signup-email" class="block text-sm font-medium text-gray-700 mb-2" data-i18n="signup_email">Email Address *</label> <input type="email" id="signup-email" required placeholder="your@email.com" class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:border-purple-500 transition">
+         </div>
+         <div><label for="signup-mobile" class="block text-sm font-medium text-gray-700 mb-2" data-i18n="signup_mobile">Mobile Number *</label> <input type="tel" id="signup-mobile" required placeholder="10-digit mobile number" pattern="[0-9]{10}" class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:border-purple-500 transition">
+         </div>
+         <div><label for="signup-password" class="block text-sm font-medium text-gray-700 mb-2" data-i18n="signup_password">Password *</label> <input type="password" id="signup-password" required placeholder="Create a password" minlength="6" class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:border-purple-500 transition">
+          <p class="text-xs text-gray-500 mt-1" data-i18n="signup_password_hint">Minimum 6 characters</p>
+         </div>
+         <div><label for="signup-confirm-password" class="block text-sm font-medium text-gray-700 mb-2" data-i18n="signup_confirm_password">Confirm Password *</label> <input type="password" id="signup-confirm-password" required placeholder="Confirm your password" minlength="6" class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:border-purple-500 transition">
+         </div>
+        </div><button type="submit" id="signup-submit-btn" class="btn-primary text-white w-full py-4 rounded-xl font-bold text-lg mb-4"> <span data-i18n="signup_button">Sign Up</span> </button>
+        <p class="text-center text-gray-600 text-sm"><span data-i18n="signup_have_account">Already have an account?</span> <a href="#" onclick="navigateTo('login'); return false;" class="text-purple-600 hover:text-purple-700 font-medium" data-i18n="signup_login_link">Login</a></p>
+       </form>
+      </div>
+     </div>
+    </div>
+   </section><!-- Admin Page -->
+   <section id="page-admin" class="page hidden">
+    <div class="py-8">
+     <div class="max-w-6xl mx-auto px-4">
+      <div class="flex items-center justify-between mb-8">
+       <h1 class="font-montserrat text-2xl font-bold text-gray-800">Admin Dashboard</h1><span class="bg-yellow-100 text-yellow-700 px-3 py-1 rounded-full text-sm font-medium">Demo Mode</span>
+      </div><!-- Stats -->
+      <div class="grid grid-cols-1 sm:grid-cols-4 gap-4 mb-8">
+       <div class="bg-white rounded-xl p-4 card-shadow">
+        <p class="text-gray-500 text-sm">Total Orders</p>
+        <p id="stat-total" class="font-montserrat text-2xl font-bold text-gray-800">0</p>
+       </div>
+       <div class="bg-white rounded-xl p-4 card-shadow">
+        <p class="text-gray-500 text-sm">Successful</p>
+        <p id="stat-success" class="font-montserrat text-2xl font-bold text-green-600">0</p>
+       </div>
+       <div class="bg-white rounded-xl p-4 card-shadow">
+        <p class="text-gray-500 text-sm">Pending</p>
+        <p id="stat-pending" class="font-montserrat text-2xl font-bold text-yellow-600">0</p>
+       </div>
+       <div class="bg-white rounded-xl p-4 card-shadow">
+        <p class="text-gray-500 text-sm">Revenue</p>
+        <p id="stat-revenue" class="font-montserrat text-2xl font-bold text-purple-600">₹0</p>
+       </div>
+      </div><!-- Orders Table -->
+      <div class="bg-white rounded-2xl card-shadow overflow-hidden">
+       <div class="p-4 border-b border-gray-100">
+        <h2 class="font-semibold text-gray-800">Recent Orders</h2>
+       </div>
+       <div class="overflow-x-auto">
+        <table class="w-full">
+         <thead class="bg-gray-50">
+          <tr>
+           <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">Order ID</th>
+           <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">Name</th>
+           <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">Email</th>
+           <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">Mobile</th>
+           <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">State</th>
+           <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">Amount</th>
+           <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">Status</th>
+           <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">Actions</th>
+          </tr>
+         </thead>
+         <tbody id="orders-table-body" class="divide-y divide-gray-100">
+          <tr>
+           <td colspan="8" class="px-4 py-8 text-center text-gray-500">No orders yet</td>
+          </tr>
+         </tbody>
+        </table>
+       </div>
+      </div>
+     </div>
+    </div>
+   </section><!-- Toast Container -->
+   <div id="toast-container" class="fixed bottom-4 right-4 z-50"></div>
+  </div>
+  <script>
+    function openPdf(orderId){
+  console.log("🧾 Opening PDF:", orderId);
+
+  navigateTo("pdf");
+
+  setTimeout(() => {
+    const iframe = document.getElementById("securePdf");
+    if(!iframe){
+      console.error("❌ iframe not found");
+      return;
+    }
+
+    const url = "https://examhelp-backend.onrender.com/api/pdf/test";
+    console.log("📄 Loading:", url);
+    iframe.src = url;
+  }, 300);   // DOM ko render hone ka time
+}
+
+    // Language translations
+    const translations = {
+      en: {
+        nav_home: 'Home',
+        nav_ebooks: 'E-Books',
+        nav_admin: 'Admin',
+        nav_contact: 'Contact',
+        nav_buy: 'Buy Now',
+        nav_login: 'Login',
+        nav_signup: 'Sign Up',
+        nav_logout: 'Logout',
+        login_title: 'Welcome Back!',
+        login_subtitle: 'Login to access your account',
+        login_email: 'Email Address *',
+        login_password: 'Password *',
+        login_button: 'Login',
+        login_no_account: "Don't have an account?",
+        login_signup_link: 'Sign Up',
+        signup_title: 'Create Account',
+        signup_subtitle: 'Join us and start learning!',
+        signup_name: 'Full Name *',
+        signup_email: 'Email Address *',
+        signup_mobile: 'Mobile Number *',
+        signup_password: 'Password *',
+        signup_confirm_password: 'Confirm Password *',
+        signup_password_hint: 'Minimum 6 characters',
+        signup_button: 'Sign Up',
+        signup_have_account: 'Already have an account?',
+        signup_login_link: 'Login',
+        checkout_name: 'Full Name *',
+        checkout_email: 'Email Address *',
+        checkout_mobile: 'Mobile Number *',
+        checkout_state: 'State *',
+        contact_title: 'Contact Us',
+        contact_subtitle: 'Get in touch with us for any queries or support',
+        contact_whatsapp: 'WhatsApp Support',
+        contact_whatsapp_desc: 'Chat with us directly on WhatsApp',
+        contact_whatsapp_btn: 'Message on WhatsApp',
+        contact_email: 'Email Support',
+        contact_email_desc: 'Send us an email for detailed queries',
+        contact_email_btn: 'Send Email',
+        contact_form_title: 'Send us a Message',
+        contact_form_name: 'Your Name *',
+        contact_form_email: 'Email Address *',
+        contact_form_message: 'Message *',
+        contact_form_submit: 'Send Message',
+        feedback_title: 'Share Your Feedback',
+        feedback_subtitle: 'Help us improve and help other students',
+        feedback_rating: 'Your Rating *',
+        feedback_name: 'Your Name *',
+        feedback_email: 'Email Address *',
+        feedback_review: 'Your Review *',
+        feedback_submit: 'Submit Review',
+        reviews_title: '💬 Student Reviews',
+        reviews_based: 'Based on',
+        reviews_write: 'Write a Review'
+      },
+      hi: {
+        nav_home: 'होम',
+        nav_ebooks: 'ई-ब�����क्स',
+        nav_admin: 'एडमि��',
+        nav_contact: '��ंपर्क करे��',
+        nav_buy: 'अभी खरीदें',
+        checkout_name: 'पू����� नाम *',
+        checkout_email: 'ईमेल पता *',
+        checkout_mobile: 'मोबाइल नंबर *',
+        checkout_state: 'राज्य *',
+        contact_title: 'संपर्क करें',
+        contact_subtitle: 'किसी भी प्रश्न या सहायता के लिए हमसे संपर्क करें',
+        contact_whatsapp: 'व�����ाट्सएप सपोर्ट',
+        contact_whatsapp_desc: 'व्हाट्सएप पर सीधे हमसे चैट करें',
+        contact_whatsapp_btn: 'व��हाट��सएप पर मै���ेज करें',
+        contact_email: 'ईमेल सपोर्ट',
+        contact_email_desc: 'वि�����������त प्रश्नो��� क��� �������ए हमें ईमेल भेजें',
+        contact_email_btn: 'ईमेल भेजें',
+        contact_form_title: 'हमें संदेश भे���ें',
+        contact_form_name: 'आपका नाम *',
+        contact_form_email: 'ईमेल पता *',
+        contact_form_message: 'संदेश *',
+        contact_form_submit: 'संदेश भेजें',
+        feedback_title: 'अपनी प्रतिक्रिया साझा करें',
+        feedback_subtitle: 'हमें सुधारने और अ��्य छात्रों की मदद करें',
+        feedback_rating: 'आपकी रेटिंग *',
+        feedback_name: 'आपका नाम *',
+        feedback_email: 'ईमेल पता *',
+        feedback_review: 'आपकी समीक्षा *',
+        feedback_submit: 'समीक्षा स��मि��� करें',
+        reviews_title: '💬 ������������ �������क्षा��ं',
+        reviews_based: 'आधारित',
+        reviews_write: 'समीक्षा लि��ें'
+      },
+      as: {
+        nav_home: 'হোম',
+        nav_ebooks: 'ই-বুক',
+        nav_admin: 'এডম���ন',
+        nav_contact: 'যোগাযোগ',
+        nav_buy: 'এতিয়া কিনক',
+        checkout_name: '��ম্পূৰ্ণ নাম *',
+        checkout_email: 'ইমেইল ঠিকনা *',
+        checkout_mobile: 'মোবাইল নম্বৰ *',
+        checkout_state: 'ৰাজ্য *',
+        contact_title: 'যোগাযোগ ক���ক',
+        contact_subtitle: 'যিকোনো প্ৰশ্ন বা সহায়ৰ বাবে আমাৰ স��তে যোগাযোগ কৰ��',
+        contact_whatsapp: 'WhatsApp সহায়',
+        contact_whatsapp_desc: 'WhatsApp ত আমাৰ সৈতে চেট কৰক',
+        contact_whatsapp_btn: 'WhatsApp ত ���েচেজ কৰক',
+        contact_email: 'ইমেইল সহায়',
+        contact_email_desc: 'বিস্তৃত প্ৰশ্নৰ বাবে আমাক ইমেইল কৰক',
+        contact_email_btn: 'ইম���ইল পঠাওক',
+        contact_form_title: 'আমাক বাৰ্তা পঠাওক',
+        contact_form_name: '��পোনাৰ নাম *',
+        contact_form_email: 'ইমেইল ঠিকনা *',
+        contact_form_message: 'বাৰ্তা *',
+        contact_form_submit: 'বাৰ্তা পঠাওক',
+        feedback_title: 'আপ���নাৰ মতামত শ্বেয়া�� কৰক',
+        feedback_subtitle: 'আমাক উন্নত কৰাত আৰু আন ছা���্ৰ-ছাত্ৰীক সহায় কৰক',
+        feedback_rating: 'আপোনাৰ ৰেটিং *',
+        feedback_name: 'আপ���ন���ৰ নাম *',
+        feedback_email: 'ইমেই�� ঠিকনা *',
+        feedback_review: 'আপোনা�� পৰ্যালোচনা *',
+        feedback_submit: '��ৰ্যালোচনা জমা দিয়ক',
+        reviews_title: '💬 ছাত্ৰ-ছাত্ৰী��� পৰ্যালোচনা',
+        reviews_based: 'ভিত্তি',
+        reviews_write: '������্যালোচনা লিখক'
+      }
+    };
+
+    let currentLanguage = 'en';
+
+    // Change language
+    function changeLanguage(lang) {
+      currentLanguage = lang;
+      localStorage.setItem('preferredLanguage', lang);
+      updatePageLanguage();
+    }
+
+    function updatePageLanguage() {
+      const elements = document.querySelectorAll('[data-i18n]');
+      elements.forEach(el => {
+        const key = el.getAttribute('data-i18n');
+        if (translations[currentLanguage] && translations[currentLanguage][key]) {
+          if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') {
+            el.placeholder = translations[currentLanguage][key];
+          } else {
+            el.textContent = translations[currentLanguage][key];
+          }
+        }
+      });
+    }
+
+    // Rating functions
+    let selectedRating = 0;
+    const ratingLabels = {
+      1: 'Poor',
+      2: 'Fair',
+      3: 'Good',
+      4: 'Very Good',
+      5: 'Excellent'
+    };
+
+    function setRating(rating) {
+      selectedRating = rating;
+      document.getElementById('rating-value').value = rating;
+      document.getElementById('rating-text').textContent = ratingLabels[rating];
+      
+      const buttons = document.querySelectorAll('.rating-btn');
+      buttons.forEach((btn, index) => {
+        if (index < rating) {
+          btn.classList.remove('text-gray-300');
+          btn.classList.add('text-yellow-400');
+        } else {
+          btn.classList.remove('text-yellow-400');
+          btn.classList.add('text-gray-300');
+        }
+      });
+    }
+
+    // Handle feedback form
+    async function handleFeedbackForm(e) {
+  e.preventDefault();
+
+  if (selectedRating === 0) {
+    showToast('Please select a rating', 'error');
+    return;
+  }
+
+  const submitBtn = document.getElementById('feedback-submit-btn');
+  submitBtn.disabled = true;
+  submitBtn.innerHTML = '<div class="spinner mx-auto"></div>';
+
+  // Simulate small delay safely
+  await new Promise(resolve => setTimeout(resolve, 1500));
+
+  showToast('Thank you for your feedback! 🎉', 'success');
+
+  document.getElementById('feedback-form').reset();
+  selectedRating = 0;
+
+  document.querySelectorAll('.rating-btn').forEach(btn => {
+    btn.classList.remove('text-yellow-400');
+    btn.classList.add('text-gray-300');
+  });
+
+  document.getElementById('rating-text').textContent = '';
+
+  submitBtn.disabled = false;
+  submitBtn.textContent = 'Submit Review';
+
+  setTimeout(() => {
+    navigateTo('details');
+  }, 2000);
+}
+
+    // Handle contact form
+    async function handleContactForm(e) {
+      e.preventDefault();
+      
+      showToast('Message sent successfully! We\'ll get back to you soon.', 'success');
+      document.getElementById('contact-form').reset();
+    }
+
+    // Default configuration
+    const defaultConfig = {
+      hero_title: 'HSLC EXAM 2026 – English Full Syllabus',
+      hero_subtitle: '500+ MCQs with 99% Common Questions! Complete English study material with Grammar, Comprehension & Previous Year Solutions. Secure access, no downloads.',
+      price_text: '₹199',
+      cta_button_text: 'Buy Now',
+      primary_color: '#667eea',
+      secondary_color: '#764ba2',
+      background_color: '#f9fafb',
+      text_color: '#1f2937',
+      accent_color: '#10b981'
+    };
+
+    // Application state
+   
+
+    // Auth data handler
+    const authDataHandler = {
+      onDataChanged(data) {
+        users = data;
+      }
+    };
+
+    // Check if user is logged in
+    function checkAuthState() {
+      const savedUser = localStorage.getItem('currentUser');
+      if (savedUser) {
+        currentUser = JSON.parse(savedUser);
+        updateAuthUI();
+      }
+    }
+
+    // Update auth UI
+    function updateAuthUI() {
+      const authButtons = document.getElementById('auth-buttons');
+      const userMenu = document.getElementById('user-menu');
+      const userNameDisplay = document.getElementById('user-name-display');
+
+      if (currentUser) {
+        authButtons.classList.add('hidden');
+        userMenu.classList.remove('hidden');
+        userMenu.classList.add('flex');
+        userNameDisplay.textContent = currentUser.name;
+      } else {
+        authButtons.classList.remove('hidden');
+        userMenu.classList.add('hidden');
+        userMenu.classList.remove('flex');
+      }
+    }
+
+    // Handle login
+    async function handleLogin(e) {
+      e.preventDefault();
+      
+      const email = document.getElementById('login-email').value.trim();
+      const password = document.getElementById('login-password').value;
+      
+      const submitBtn = document.getElementById('login-submit-btn');
+      submitBtn.disabled = true;
+      submitBtn.innerHTML = '<div class="spinner mx-auto"></div>';
+
+      showHeaderLoading(true);
+      await new Promise(resolve => setTimeout(resolve, 1500));
+
+      // Check for admin credentials
+      if (email === 'Shahid@admin.com' && password === 'Shahid123') {
+        currentUser = { name: 'Admin', email: email, mobile: 'Admin', isAdmin: true };
+        localStorage.setItem('currentUser', JSON.stringify(currentUser));
+        updateAuthUI();
+        showToast('Admin login successful! Welcome! 🎉', 'success');
+        document.getElementById('login-form').reset();
+        setTimeout(() => {
+          navigateTo('admin');
+        }, 1000);
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = '<span data-i18n="login_button">Login</span>';
+        showHeaderLoading(false);
+        updatePageLanguage();
+        return;
+      }
+
+      // Find regular user
+      const user = users.find(u => u.email === email && u.password === password);
+      
+      if (user) {
+        currentUser = { name: user.name, email: user.email, mobile: user.mobile, isAdmin: false };
+        localStorage.setItem('currentUser', JSON.stringify(currentUser));
+        updateAuthUI();
+        showToast('Login successful! Welcome back! 🎉', 'success');
+        document.getElementById('login-form').reset();
+        setTimeout(() => {
+          navigateTo('home');
+        }, 1000);
+      } else {
+        showToast('Invalid email or password', 'error');
+      }
+      
+      submitBtn.disabled = false;
+      submitBtn.innerHTML = '<span data-i18n="login_button">Login</span>';
+      showHeaderLoading(false);
+      updatePageLanguage();
+    }
+
+    // Handle signup
+    async function handleSignup(e) {
+      e.preventDefault();
+      
+      const name = document.getElementById('signup-name').value.trim();
+      const email = document.getElementById('signup-email').value.trim();
+      const mobile = document.getElementById('signup-mobile').value.trim();
+      const password = document.getElementById('signup-password').value;
+      const confirmPassword = document.getElementById('signup-confirm-password').value;
+      
+      if (password !== confirmPassword) {
+        showToast('Passwords do not match', 'error');
+        return;
+      }
+
+      if (!/^[0-9]{10}$/.test(mobile)) {
+        showToast('Please enter a valid 10-digit mobile number', 'error');
+        return;
+      }
+
+      const submitBtn = document.getElementById('signup-submit-btn');
+      submitBtn.disabled = true;
+      submitBtn.innerHTML = '<div class="spinner mx-auto"></div>';
+
+      showHeaderLoading(true);
+      await new Promise(resolve => setTimeout(resolve, 1500));
+
+      // Check if user exists
+      const existingUser = users.find(u => u.email === email);
+      if (existingUser) {
+        showToast('Email already registered. Please login.', 'error');
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = '<span data-i18n="signup_button">Sign Up</span>';
+        showHeaderLoading(false);
+        updatePageLanguage();
+        return;
+      }
+
+      // Check user limit
+      if (users.length >= 999) {
+        showToast('User limit reached', 'error');
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = '<span data-i18n="signup_button">Sign Up</span>';
+        showHeaderLoading(false);
+        updatePageLanguage();
+        return;
+      }
+
+      // Create new user
+      const newUser = {
+        id: 'USER-' + Date.now().toString(36).toUpperCase(),
+        name,
+        email,
+        mobile,
+        password,
+        createdAt: new Date().toISOString()
+      };
+
+      if (window.dataSdk) {
+        const result = await window.dataSdk.create(newUser);
+        if (!result.isOk) {
+          showToast('Failed to create account', 'error');
+          submitBtn.disabled = false;
+          submitBtn.innerHTML = '<span data-i18n="signup_button">Sign Up</span>';
+          showHeaderLoading(false);
+          updatePageLanguage();
+          return;
+        }
+      }
+
+      currentUser = { name, email, mobile };
+      localStorage.setItem('currentUser', JSON.stringify(currentUser));
+      updateAuthUI();
+      showToast('Account created successfully! 🎉', 'success');
+      document.getElementById('signup-form').reset();
+      
+      submitBtn.disabled = false;
+      submitBtn.innerHTML = '<span data-i18n="signup_button">Sign Up</span>';
+      showHeaderLoading(false);
+      updatePageLanguage();
+
+      setTimeout(() => {
+        navigateTo('home');
+      }, 1000);
+    }
+
+    // Handle logout
+    function handleLogout() {
+      currentUser = null;
+      localStorage.removeItem('currentUser');
+      updateAuthUI();
+      showToast('Logged out successfully', 'success');
+      navigateTo('home');
+    }
+
+    // Valid coupons
+    const validCoupons = {
+      'STUDENT50': { discount: 50, type: 'flat' },
+      'WELCOME10': { discount: 10, type: 'percent' },
+      'HSLC2026': { discount: 30, type: 'flat' },
+      'DISCOUNT': { discount: 20, type: 'flat' },
+      'SHAHID20': { discount: 20, type: 'flat' }
+    };
+
+    // Data handler for persistence
+    const dataHandler = {
+      onDataChanged(data) {
+        orders = data;
+        updateAdminStats();
+        renderOrdersTable();
+      }
+    };
+
+    // Initialize SDKs
+    async function initializeApp() {
+      // Load language preference
+      const savedLanguage = localStorage.getItem('preferredLanguage') || 'en';
+      currentLanguage = savedLanguage;
+      const langSelector = document.getElementById('language-selector');
+      if (langSelector) {
+        langSelector.value = savedLanguage;
+      }
+      updatePageLanguage();
+
+      // Initialize Element SDK
+      if (window.elementSdk) {
+        await window.elementSdk.init({
+          defaultConfig,
+          onConfigChange: async (config) => {
+            applyConfig(config);
+          },
+          mapToCapabilities: (config) => ({
+            recolorables: [
+              {
+                get: () => config.primary_color || defaultConfig.primary_color,
+                set: (value) => window.elementSdk.setConfig({ primary_color: value })
+              },
+              {
+                get: () => config.background_color || defaultConfig.background_color,
+                set: (value) => window.elementSdk.setConfig({ background_color: value })
+              },
+              {
+                get: () => config.text_color || defaultConfig.text_color,
+                set: (value) => window.elementSdk.setConfig({ text_color: value })
+              }
+            ],
+            borderables: [],
+            fontEditable: {
+              get: () => config.font_family || 'Poppins',
+              set: (value) => window.elementSdk.setConfig({ font_family: value })
+            },
+            fontSizeable: {
+              get: () => config.font_size || 16,
+              set: (value) => window.elementSdk.setConfig({ font_size: value })
+            }
+          }),
+          mapToEditPanelValues: (config) => new Map([
+            ['hero_title', config.hero_title || defaultConfig.hero_title],
+            ['hero_subtitle', config.hero_subtitle || defaultConfig.hero_subtitle],
+            ['price_text', config.price_text || defaultConfig.price_text],
+            ['cta_button_text', config.cta_button_text || defaultConfig.cta_button_text]
+          ])
+        });
+      }
+
+      // Initialize Data SDK
+      if (window.dataSdk) {
+        const result = await window.dataSdk.init(dataHandler);
+        if (!result.isOk) {
+          console.error('Failed to initialize Data SDK');
+        }
+      }
+
+      applyConfig(window.elementSdk?.config || defaultConfig);
+    }
+
+    // Apply configuration to UI
+    function applyConfig(config) {
+      const heroTitle = document.getElementById('hero-title');
+      const heroSubtitle = document.getElementById('hero-subtitle');
+      const heroPrice = document.getElementById('hero-price');
+      const ctaButton = document.getElementById('cta-button');
+      const priceDisplay = document.getElementById('price-display');
+
+      if (heroTitle) {
+        const titleText = config.hero_title || defaultConfig.hero_title;
+        heroTitle.innerHTML = titleText.replace('–', '<br/>');
+      }
+      if (heroSubtitle) heroSubtitle.textContent = config.hero_subtitle || defaultConfig.hero_subtitle;
+      if (heroPrice) heroPrice.textContent = config.price_text || defaultConfig.price_text;
+      if (ctaButton) ctaButton.textContent = config.cta_button_text || defaultConfig.cta_button_text;
+      if (priceDisplay) priceDisplay.textContent = config.price_text || defaultConfig.price_text;
+
+      // Apply font
+      const fontFamily = config.font_family || 'Poppins';
+      document.body.style.fontFamily = `${fontFamily}, sans-serif`;
+    }
+
+    // Navigation
+    function navigateTo(page) {
+      // Protect admin page
+      if (page === 'admin') {
+        if (!currentUser || !currentUser.isAdmin) {
+          showToast('Access denied! Admin login required.', 'error');
+          navigateTo('login');
+          return;
+        }
+      }
+
+      document.querySelectorAll('.page').forEach(p => p.classList.add('hidden'));
+      document.getElementById(`page-${page}`).classList.remove('hidden');
+      currentPage = page;
+      window.scrollTo(0, 0);
+    }
+
+    // Coupon handling
+    function applyCoupon() {
+      const couponInput = document.getElementById('coupon-input');
+      const couponMessage = document.getElementById('coupon-message');
+      const code = couponInput.value.trim().toUpperCase();
+
+      if (!code) {
+        showCouponMessage('Please enter a coupon code', 'error');
+        return;
+      }
+
+      if (validCoupons[code]) {
+        appliedCoupon = { code, ...validCoupons[code] };
+        updateCheckoutTotal();
+        showCouponMessage(`Coupon applied! You saved ${appliedCoupon.type === 'flat' ? '₹' + appliedCoupon.discount : appliedCoupon.discount + '%'}`, 'success');
+        couponInput.disabled = true;
+      } else {
+        showCouponMessage('Invalid coupon code', 'error');
+      }
+    }
+
+    function showCouponMessage(text, type) {
+      const couponMessage = document.getElementById('coupon-message');
+      couponMessage.textContent = text;
+      couponMessage.className = `text-sm mt-2 ${type === 'success' ? 'text-green-600' : 'text-red-600'}`;
+      couponMessage.classList.remove('hidden');
+    }
+
+    function updateCheckoutTotal() {
+      let total = basePrice;
+      const discountRow = document.getElementById('coupon-discount-row');
+      const discountAmount = document.getElementById('coupon-discount-amount');
+      const checkoutTotal = document.getElementById('checkout-total');
+
+      if (appliedCoupon) {
+        let discount = appliedCoupon.type === 'flat' 
+          ? appliedCoupon.discount 
+          : Math.round(basePrice * appliedCoupon.discount / 100);
+        total -= discount;
+        discountRow.classList.remove('hidden');
+        discountRow.classList.add('flex');
+        discountAmount.textContent = `-₹${discount}`;
+      } else {
+        discountRow.classList.add('hidden');
+      }
+
+      checkoutTotal.textContent = `₹${total}`;
+    }
+
+    // Checkout handling
+    async function handleCheckout(e) {
+  e.preventDefault();
+
+  const name = document.getElementById('name').value.trim();
+  const email = document.getElementById('email').value.trim();
+  const mobile = document.getElementById('mobile').value.trim();
+  const state = document.getElementById('state').value;
+
+  if (!name || !email || !mobile || !state) {
+    showToast("Please fill all fields", "error");
+    return;
+  }
+
+  if (!/^[0-9]{10}$/.test(mobile)) {
+    showToast("Invalid mobile number", "error");
+    return;
+  }
+
+  const payBtn = document.getElementById("pay-button");
+  const payText = document.getElementById("pay-button-text");
+
+  payBtn.disabled = true;
+  payText.innerHTML = "Processing...";
+
+  // ⏳ Fake Payment Delay
+  await new Promise(resolve => setTimeout(resolve, 1500));
+
+  // 🧾 Fake Order Generate
+  const order = {
+    _id: "ORD" + Date.now(),
+    name,
+    email,
+    mobile,
+    state,
+    amount: 199,
+    paymentStatus: "SUCCESS"
+  };
+
+  orders.push(order);
+
+  payBtn.disabled = false;
+  payText.innerHTML = "Pay with PhonePe";
+
+  showToast("Payment Successful 🎉", "success");
+
+  // Success Page
+  document.getElementById("success-order-id").innerText = order._id;
+  navigateTo("success");
+
+  // 🔓 Auto Open PDF
+  setTimeout(() => {
+  console.log("Opening PDF for:", orderId);
+  openPdf(orderId);
+}, 600);
+}
+
+
+ 
+
+    // Admin functions
+    function updateAdminStats() {
+      const total = orders.length;
+      const success = orders.filter(o => o.paymentStatus === 'SUCCESS').length;
+      const pending = orders.filter(o => o.paymentStatus === 'PENDING').length;
+      const revenue = orders
+        .filter(o => o.paymentStatus === 'SUCCESS')
+        .reduce((sum, o) => sum + (o.amount || 0), 0);
+
+      document.getElementById('stat-total').textContent = total;
+      document.getElementById('stat-success').textContent = success;
+      document.getElementById('stat-pending').textContent = pending;
+      document.getElementById('stat-revenue').textContent = `₹${revenue}`;
+    }
+
+    function renderOrdersTable() {
+      const tbody = document.getElementById('orders-table-body');
+      
+      if (orders.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="8" class="px-4 py-8 text-center text-gray-500">No orders yet</td></tr>';
+        return;
+      }
+
+      tbody.innerHTML = orders.map(order => `
+        <tr class="hover:bg-gray-50">
+          <td class="px-4 py-3 text-sm font-medium text-gray-800">${order.orderId || order.id}</td>
+          <td class="px-4 py-3 text-sm text-gray-600">${order.name}</td>
+          <td class="px-4 py-3 text-sm text-gray-600">${order.email}</td>
+          <td class="px-4 py-3 text-sm text-gray-600">${order.mobile}</td>
+          <td class="px-4 py-3 text-sm text-gray-600">${order.state || '-'}</td>
+          <td class="px-4 py-3 text-sm font-medium text-gray-800">₹${order.amount}</td>
+          <td class="px-4 py-3">
+            <span class="px-2 py-1 text-xs font-medium rounded-full ${
+              order.paymentStatus === 'SUCCESS' ? 'bg-green-100 text-green-700' :
+              order.paymentStatus === 'FAILED' ? 'bg-red-100 text-red-700' :
+              'bg-yellow-100 text-yellow-700'
+            }">${order.paymentStatus}</span>
+          </td>
+          <td class="px-4 py-3">
+            ${order.paymentStatus === 'SUCCESS' ? `
+              <button onclick="sendDigifyLink('${order.email}')" class="text-purple-600 hover:text-purple-800 text-sm font-medium">
+                Send Link
+              </button>
+            ` : '-'}
+          </td>
+        </tr>
+      `).join('');
+    }
+
+    function sendDigifyLink(email) {
+      showToast(`Demo: Digify link would be sent to ${email}`, 'success');
+    }
+
+    // Download material function
+    function downloadMaterial(type) {
+      const materials = {
+        grammar: 'Grammar Notes',
+        mcq: 'Sample MCQs',
+        paper: 'Last Year Paper',
+        writing: 'Essay & Letter Writing',
+        vocab: 'Word Lists',
+        notes: 'Revision Notes'
+      };
+      
+      showToast(`Downloading ${materials[type]}... Please wait`, 'success');
+      
+      // Simulate download delay
+      setTimeout(() => {
+        showToast(`${materials[type]} download started! 📥`, 'success');
+      }, 1000);
+    }
+
+    // Copy coupon code to clipboard
+    function copyCoupon(code) {
+      const tempInput = document.createElement('input');
+      tempInput.value = code;
+      document.body.appendChild(tempInput);
+      tempInput.select();
+      
+      try {
+        document.execCommand('copy');
+        showToast(`Coupon ${code} copied! Use it at checkout`, 'success');
+      } catch (err) {
+        showToast('Failed to copy coupon code', 'error');
+      }
+      
+      document.body.removeChild(tempInput);
+    }
+
+    // Toast notification
+    function showToast(message, type = 'info') {
+      const container = document.getElementById('toast-container');
+      const toast = document.createElement('div');
+      toast.className = `toast mb-2 px-4 py-3 rounded-xl shadow-lg ${
+        type === 'success' ? 'bg-green-500' : 
+        type === 'error' ? 'bg-red-500' : 'bg-purple-500'
+      } text-white font-medium`;
+      toast.textContent = message;
+      container.appendChild(toast);
+      
+      setTimeout(() => {
+        toast.remove();
+      }, 3000);
+    }
+
+    // Initialize on load
+    initializeApp();
+    checkAuthState();
+
+    // Show/hide center loading spinner
+    function showHeaderLoading(show) {
+      const centerLoading = document.getElementById('center-loading');
+      if (centerLoading) {
+        centerLoading.style.display = show ? 'flex' : 'none';
+      }
+    }
+
+    // Show loading during page transitions
+    const originalNavigateTo = navigateTo;
+    navigateTo = function(page) {
+      showHeaderLoading(true);
+      setTimeout(() => {
+        originalNavigateTo(page);
+        setTimeout(() => {
+          showHeaderLoading(false);
+        }, 300);
+      }, 100);
+    };
+  </script>
+ <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9bb2e01c30d684d1',t:'MTc2Nzk1MDYwMi4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script>
+<script>
+const API = "https://examhelp-backend.onrender.com";
+
+async function handleSignup(e){
+  e.preventDefault();
+
+  const name = document.getElementById("signup-name").value;
+  const email = document.getElementById("signup-email").value;
+  const mobile = document.getElementById("signup-mobile").value;
+  const password = document.getElementById("signup-password").value;
+  const confirm = document.getElementById("signup-confirm-password").value;
+
+  if(password !== confirm){
+    showToast("Passwords do not match","error");
+    return;
+  }
+
+  const res = await fetch(API + "/api/auth/signup", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ name, email, mobile, password })
+  });
+
+  const data = await res.json();
+
+  if(!res.ok){
+    showToast(data.msg || "Signup failed","error");
+    return;
+  }
+
+  showToast("Account created successfully","success");
+  navigateTo("login");
+}
+
+
+async function handleLogin(e) {
+  e.preventDefault();
+
+  const email = document.getElementById("login-email").value;
+  const password = document.getElementById("login-password").value;
+
+  try {
+    const res = await fetch(API + "/api/auth/login", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ email, password })
+    });
+
+    
+
+    if (!res.ok) {
+      showToast(data.msg || "Login failed", "error");
+      return;
+    }
+
+    localStorage.setItem("currentUser", JSON.stringify(data.user));
+    localStorage.setItem("token", data.token);
+
+    currentUser = data.user;
+    updateAuthUI();
+
+    showToast("Login successful", "success");
+    navigateTo("home");
+
+  } catch (err) {
+    console.error(err);
+    showToast("Network error", "error");
+  }
+}
+
+
+
+async function loadAdminData(){
+  const orders = await fetch(API + "/api/orders/all").then(r=>r.json());
+  const revenue = await fetch(API + "/api/orders/revenue").then(r=>r.json());
+  document.getElementById("stat-total").innerText = orders.length;
+  document.getElementById("stat-success").innerText = orders.length;
+  document.getElementById("stat-pending").innerText = 0;
+  document.getElementById("stat-revenue").innerText = "₹" + revenue.total;
+  const tbody = document.getElementById("orders-table-body"); tbody.innerHTML = "";
+  orders.forEach(o=>{ tbody.innerHTML += `<tr><td>${o._id}</td><td>${o.name}</td><td>${o.email}</td><td>${o.mobile}</td><td>${o.state}</td><td>₹${o.amount}</td><td>PAID</td><td>-</td></tr>`;});
+}
+</script>
+
+<script>
+document.addEventListener("contextmenu", e => e.preventDefault());
+
+document.addEventListener("keydown", e => {
+  if(e.ctrlKey && ["s","p","u"].includes(e.key.toLowerCase()))
+    e.preventDefault();
+});
+</script>
+
+</body>
+</html>
